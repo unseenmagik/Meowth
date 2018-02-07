@@ -264,7 +264,7 @@ def create_gmaps_query(details, channel):
     loc_list = server_dict[channel.server.id]['city_channels'][channel.name].split()
     return "https://www.google.com/maps/search/?api=1&query={0}+{1}".format('+'.join(details_list),'+'.join(loc_list))
 
-# Given a User, check that it is Meowth's master
+# Given a User, check that it is magik Bot's master
 def check_master(user):
     return str(user) == config['master']
 
@@ -282,9 +282,9 @@ def spellcheck(word):
 
     # If we have a spellcheck suggestion
     if suggestion != word:
-        return _("Meowth! \"{entered_word}\" is not a Pokemon! Did you mean \"{corrected_word}\"?").format(entered_word=word, corrected_word=spelling.correction(word))
+        return _("Magik Bot \"{entered_word}\" is not a Pokemon! Did you mean \"{corrected_word}\"?").format(entered_word=word, corrected_word=spelling.correction(word))
     else:
-        return _("Meowth! \"{entered_word}\" is not a Pokemon! Check your spelling!").format(entered_word=word)
+        return _("Magik Bot \"{entered_word}\" is not a Pokemon! Check your spelling!").format(entered_word=word)
 
 def do_template(message, author, server):
     not_found = []
@@ -532,7 +532,7 @@ async def channel_cleanup(loop=True):
                     #list channel for deletion from save data
                     dict_channel_delete.append(channelid)
                     logger.info(log_str+" - DOESN'T EXIST IN DISCORD")
-                #otherwise, if meowth can still see the channel in discord
+                #otherwise, if magik bot can still see the channel in discord
                 else:
                     logger.info(log_str+" ("+channel.name+") - EXISTS IN DISCORD")
                     #if the channel save data shows it's not an active raid
@@ -714,7 +714,7 @@ async def on_ready():
         owners.append(server.owner)
 
 
-    await _print(Meowth.owner,_("Meowth! That's right!\n\n{server_count} servers connected.\n{member_count} members found.").format(server_count=servers,member_count=users))
+    await _print(Meowth.owner,_("Magik Bot! That's right!\n\n{server_count} servers connected.\n{member_count} members found.").format(server_count=servers,member_count=users))
 
     await maint_start()
 
@@ -722,7 +722,7 @@ async def on_ready():
 async def on_server_join(server):
     owner = server.owner
     server_dict[server.id] = {'want_channel_list': [], 'offset': 0, 'welcome': False, 'welcomechan': '','welcomemsg':'default','wantset': False, 'raidset': False, 'wildset': False, 'team': False, 'want': False, 'other': False, 'done': False, 'raidchannel_dict' : {}}
-    await Meowth.send_message(owner, _("Meowth! I'm Meowth, a Discord helper bot for Pokemon Go communities, and someone has invited me to your server! Type **!help** to see a list of things I can do, and type **!configure** in any channel of your server to begin!"))
+    await Meowth.send_message(owner, _("Wahoo! I'm Magik Bot, a Discord helper bot for Pokemon Go communities, and someone has invited me to your server! Type **!help** to see a list of things I can do, and type **!configure** in any channel of your server to begin!"))
 
 @Meowth.event
 async def on_server_remove(server):
@@ -745,7 +745,7 @@ async def on_member_join(member):
     # Build welcome message
     if server_dict[server.id].get('welcomemsg', 'default') == "default":
         admin_message = _(" If you have any questions just ask an admin.")
-        welcomemessage = _("Meowth! Welcome to {server}, {user}! ")
+        welcomemessage = _("Magik Bot! Welcome to {server}, {user}! ")
         if server_dict[server.id]['team'] == True:
             welcomemessage += _("Set your team by typing {team_command}.").format(team_command=team_msg)
         welcomemessage += admin_message
@@ -781,7 +781,7 @@ async def on_message(message):
                     try:
                         if server_dict[message.server.id]['raidchannel_dict'][message.channel.id]['type'] == "egg":
                             if server_dict[message.server.id]['raidchannel_dict'][message.channel.id]['pokemon'] == "":
-                                await Meowth.send_message(message.channel, _("Meowth! Please wait until the raid egg has hatched before announcing you're coming or present."))
+                                await Meowth.send_message(message.channel, _("Magik Bot! Please wait until the raid egg has hatched before announcing you're coming or present."))
                                 return
                     except:
                         pass
@@ -793,7 +793,7 @@ async def on_message(message):
                     try:
                         if server_dict[message.server.id]['raidchannel_dict'][message.channel.id]['type'] == "egg":
                             if server_dict[message.server.id]['raidchannel_dict'][message.channel.id]['pokemon'] == "":
-                                await Meowth.send_message(message.channel, _("Meowth! Please wait until the raid egg has hatched before announcing you're coming or present."))
+                                await Meowth.send_message(message.channel, _("Magik Bot! Please wait until the raid egg has hatched before announcing you're coming or present."))
                                 return
                     except:
                         pass
@@ -827,7 +827,7 @@ async def on_message(message):
                         if trainer_dict[trainer]['status']=='omw':
                             user = message.server.get_member(trainer)
                             otw_list.append(user.mention)
-                    await Meowth.send_message(message.channel, content = _("Meowth! Someone has suggested a different location for the raid! Trainers {trainer_list}: make sure you are headed to the right place!").format(trainer_list=", ".join(otw_list)), embed = newembed)
+                    await Meowth.send_message(message.channel, content = _("Magik Bot! Someone has suggested a different location for the raid! Trainers {trainer_list}: make sure you are headed to the right place!").format(trainer_list=", ".join(otw_list)), embed = newembed)
                     return
 
     if message.content.startswith(_get_prefix(Meowth, message)):
@@ -877,7 +877,7 @@ async def restart(ctx):
     """Restart after saving.
 
     Usage: !restart.
-    Calls the save function and restarts Meowth."""
+    Calls the save function and restarts Magik Bot."""
     try:
         await _save()
     except Exception as err:
@@ -970,10 +970,10 @@ async def outputlog(ctx):
 @Meowth.command(pass_context=True)
 @commands.has_permissions(manage_server=True)
 async def announce(ctx,*,announce=None):
-    """Repeats your message in an embed from Meowth.
+    """Repeats your message in an embed from Magik Bot.
 
     Usage: !announce [announcement]
-    If the announcement isn't added at the same time as the command, Meowth will wait 3 minutes for a followup message containing the announcement."""
+    If the announcement isn't added at the same time as the command, Magik Bot will wait 3 minutes for a followup message containing the announcement."""
     message = ctx.message
     channel = message.channel
     server = message.server
@@ -986,7 +986,7 @@ async def announce(ctx,*,announce=None):
             announce = announcemsg.content
             await Meowth.delete_message(announcemsg)
         else:
-            confirmation = await Meowth.send_message(channel, "Meowth! You took too long to send me your announcement! Retry when you're ready.")
+            confirmation = await Meowth.send_message(channel, "Magik Bot! You took too long to send me your announcement! Retry when you're ready.")
     embeddraft = discord.Embed(colour=server.me.colour, description=announce)
     title = "Announcement"
     if Meowth.user.avatar_url:
@@ -1026,9 +1026,9 @@ async def announce(ctx,*,announce=None):
                 announcement = await Meowth.send_message(sendchannel, embed=embeddraft)
                 confirmation = await Meowth.send_message(channel,_("Announcement Sent."))
             elif sendchannel is None:
-                confirmation = await Meowth.send_message(channel, "Meowth! That channel doesn't exist! Retry when you're ready.")
+                confirmation = await Meowth.send_message(channel, "Magik Bot! That channel doesn't exist! Retry when you're ready.")
             else:
-                confirmation = await Meowth.send_message(channel, "Meowth! You took too long to send me your announcement! Retry when you're ready.")
+                confirmation = await Meowth.send_message(channel, "Magik Bot! You took too long to send me your announcement! Retry when you're ready.")
             await Meowth.delete_message(channelwait)
             await Meowth.delete_message(channelmsg)
             await Meowth.delete_message(draft)
@@ -1068,7 +1068,7 @@ async def configure(ctx):
     """Meowth Configuration
 
     Usage: !configure
-    Meowth will DM you instructions on how to configure Meowth for your server.
+    Magik Bot will DM you instructions on how to configure Magik Bot for your server.
     If it is not your first time configuring, you can choose a section to jump to."""
     try:
         await Meowth.delete_message(ctx.message)
@@ -1096,7 +1096,7 @@ async def configure(ctx):
             pass
     except KeyError:
         server_dict_temp['want_channel_list'] = []
-    configmessage = "Meowth! That's Right! Welcome to the configuration for Meowth the Pokemon Go Helper Bot! I will be guiding you through some setup steps to get me setup on your server.\n\n**Role Setup**\nBefore you begin the configuration, please make sure my role is moved to the top end of the server role hierarchy. It can be under admins and mods, but must be above team ands general roles. [Here is an example](http://i.imgur.com/c5eaX1u.png)"
+    configmessage = "Magik Bot! That's Right! Welcome to the configuration for Magik Bot the Pokemon Go Helper Bot! I will be guiding you through some setup steps to get me setup on your server.\n\n**Role Setup**\nBefore you begin the configuration, please make sure my role is moved to the top end of the server role hierarchy. It can be under admins and mods, but must be above team ands general roles. [Here is an example](http://i.imgur.com/c5eaX1u.png)"
     if firstconfig == False:
         if server_dict_temp['other']:
             configreplylist = ['all','team','welcome','main','regions','raid','wild','want','timezone','allmain']
@@ -1161,9 +1161,9 @@ async def configure(ctx):
     if configcancel == False and (firstconfig == True or configgoto == "all" or configgoto == "welcome"):
         welcomeconfig = "I can welcome new members to the server with a short message. Here is the default message:\n\n"
         if server_dict_temp['team'] == True:
-            welcomeconfig += _("Meowth! Welcome to {server_name}, {owner_name.mention}! Set your team by typing '**!team mystic**' or '**!team valor**' or '**!team instinct**' without quotations. If you have any questions just ask an admin.").format(server_name=server.name, owner_name=owner)
+            welcomeconfig += _("Magik Bot! Welcome to {server_name}, {owner_name.mention}! Set your team by typing '**!team mystic**' or '**!team valor**' or '**!team instinct**' without quotations. If you have any questions just ask an admin.").format(server_name=server.name, owner_name=owner)
         else:
-            welcomeconfig += _("Meowth! Welcome to {server_name}, {owner_name.mention}! If you have any questions just ask an admin.").format(server_name=server, owner_name=owner)
+            welcomeconfig += _("Magik Bot! Welcome to {server_name}, {owner_name.mention}! If you have any questions just ask an admin.").format(server_name=server, owner_name=owner)
         welcomeconfig += "\n\nThis welcome message can be in a specific channel or a direct message. If you have a bot that handles this already, you may want to disable this feature.\n\nRespond with: **N** to disable, **Y** to enable:"
         await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=welcomeconfig).set_author(name="Welcome Message", icon_url=Meowth.user.avatar_url))
         while True:
@@ -1447,7 +1447,7 @@ async def configure(ctx):
     server_dict_temp['done']=True
     if configcancel == False:
         server_dict[server.id] = server_dict_temp
-        await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description="Meowth! Alright! Your settings have been saved and I'm ready to go! If you need to change any of these settings, just type **!configure** in your server again."))
+        await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description="Magik Bot! Alright! Your settings have been saved and I'm ready to go! If you need to change any of these settings, just type **!configure** in your server again."))
 
 @Meowth.command(pass_context=True)
 @checks.is_owner()
@@ -1469,7 +1469,7 @@ async def clearstatus(ctx):
     Only usable by admins."""
     try:
         server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['trainer_dict'] = {}
-        await Meowth.send_message(ctx.message.channel,"Meowth! Raid status lists have been cleared!")
+        await Meowth.send_message(ctx.message.channel,"Magik Bot! Raid status lists have been cleared!")
     except KeyError:
         pass
 
@@ -1521,7 +1521,7 @@ async def cmd_uptime(ctx):
         await Meowth.send_message(channel,"I need the `Embed links` permission to send this")
 
 async def _uptime(bot):
-    """Shows info about Meowth"""
+    """Shows info about Magik Bot"""
     time_start = bot.uptime
     time_now = datetime.datetime.now()
     ut = (relativedelta(time_now,time_start))
@@ -1541,7 +1541,7 @@ async def _uptime(bot):
 
 @Meowth.command(pass_context=True)
 async def about(ctx):
-    """Shows info about Meowth"""
+    """Shows info about Magik Bot"""
     author_repo = "https://github.com/FoglyOgly"
     author_name = "FoglyOgly"
     bot_repo = author_repo + "/Meowth"
@@ -1554,7 +1554,7 @@ async def about(ctx):
     embed_colour = ctx.message.server.me.colour or discord.Colour.lighter_grey()
 
     about = (
-        "I'm Meowth! A Pokemon Go helper bot for Discord!\n\n"
+        "I'm Magik Bot! A Pokemon Go helper bot for Discord!\n\n"
         "I'm made by [{author_name}]({author_repo}) and improvements have been contributed by many other people also.\n\n"
         "[Join our server]({server_invite}) if you have any questions or feedback.\n\n"
         "".format(author_name=author_name,author_repo=author_repo,server_invite=server_url))
@@ -1566,7 +1566,7 @@ async def about(ctx):
         member_count += len(server.members)
 
     embed = discord.Embed(colour=embed_colour,icon_url=Meowth.user.avatar_url)
-    embed.add_field(name="About Meowth", value=about, inline=False)
+    embed.add_field(name="About Magik Bot", value=about, inline=False)
     embed.add_field(name="Owner", value=owner)
     if server_count > 1:
         embed.add_field(name="Servers", value=server_count)
@@ -1611,7 +1611,7 @@ async def team(ctx):
             if temp_role.position > position:
                 high_roles.append(temp_role.name)
     if high_roles:
-        await Meowth.send_message(ctx.message.channel, _("Meowth! My roles are ranked lower than the following team roles: **{higher_roles_list}**\nPlease get an admin to move my roles above them!").format(higher_roles_list=', '.join(high_roles)))
+        await Meowth.send_message(ctx.message.channel, _("Magik Bot! My roles are ranked lower than the following team roles: **{higher_roles_list}**\nPlease get an admin to move my roles above them!").format(higher_roles_list=', '.join(high_roles)))
         return
     role = None
     team_split = ctx.message.clean_content.lower().split()
@@ -1633,52 +1633,52 @@ async def team(ctx):
             # and the user has this role,
             if temp_role in ctx.message.author.roles and harmony not in ctx.message.author.roles:
                 # then report that a role is already assigned
-                await Meowth.send_message(ctx.message.channel, _("Meowth! You already have a team role!"))
+                await Meowth.send_message(ctx.message.channel, _("Magik Bot! You already have a team role!"))
                 return
             if role and role.name.lower() == "harmony" and harmony in ctx.message.author.roles:
                 # then report that a role is already assigned
-                await Meowth.send_message(ctx.message.channel, _("Meowth! You are already in Team Harmony!"))
+                await Meowth.send_message(ctx.message.channel, _("Magik Bot! You are already in Team Harmony!"))
                 return
         # If the role isn't valid, something is misconfigured, so fire a warning.
         else:
-            await Meowth.send_message(ctx.message.channel,_("Meowth! {team_role} is not configured as a role on this server. Please contact an admin for assistance.").format(team_role=team))
+            await Meowth.send_message(ctx.message.channel,_("Magik Bot! {team_role} is not configured as a role on this server. Please contact an admin for assistance.").format(team_role=team))
             return
     # Check if team is one of the three defined in the team_dict
 
     if entered_team not in config['team_dict'].keys():
-        await Meowth.send_message(ctx.message.channel, _("Meowth! \"{entered_team}\" isn't a valid team! Try {available_teams}").format(entered_team=entered_team, available_teams=team_msg))
+        await Meowth.send_message(ctx.message.channel, _("Magik Bot! \"{entered_team}\" isn't a valid team! Try {available_teams}").format(entered_team=entered_team, available_teams=team_msg))
         return
     # Check if the role is configured on the server
     elif role is None:
-        await Meowth.send_message(ctx.message.channel, _("Meowth! The \"{entered_team}\" role isn't configured on this server! Contact an admin!").format(entered_team=entered_team))
+        await Meowth.send_message(ctx.message.channel, _("Magik Bot! The \"{entered_team}\" role isn't configured on this server! Contact an admin!").format(entered_team=entered_team))
     else:
         try:
             if harmony and harmony in ctx.message.author.roles:
                 await Meowth.remove_roles(ctx.message.author, harmony)
             await Meowth.add_roles(ctx.message.author, role)
-            await Meowth.send_message(ctx.message.channel, _("Meowth! Added {member} to Team {team_name}! {team_emoji}").format(member=ctx.message.author.mention, team_name=role.name.capitalize(), team_emoji=parse_emoji(ctx.message.server, config['team_dict'][entered_team])))
+            await Meowth.send_message(ctx.message.channel, _("Magik Bot! Added {member} to Team {team_name}! {team_emoji}").format(member=ctx.message.author.mention, team_name=role.name.capitalize(), team_emoji=parse_emoji(ctx.message.server, config['team_dict'][entered_team])))
         except discord.Forbidden:
-            await Meowth.send_message(ctx.message.channel, _("Meowth! I can't add roles!"))
+            await Meowth.send_message(ctx.message.channel, _("Magik Bot! I can't add roles!"))
 
 @Meowth.command(pass_context=True, hidden=True)
 @checks.activeraidchannel()
 async def interest(ctx):
-    await Meowth.send_message(ctx.message.channel, _("Meowth! We've moved this command to **!list interested**."))
+    await Meowth.send_message(ctx.message.channel, _("Magik Bot! We've moved this command to **!list interested**."))
 
 @Meowth.command(pass_context=True, hidden=True)
 @checks.activeraidchannel()
 async def otw(ctx):
-    await Meowth.send_message(ctx.message.channel, _("Meowth! We've moved this command to **!list coming**."))
+    await Meowth.send_message(ctx.message.channel, _("Magik Bot! We've moved this command to **!list coming**."))
 
 @Meowth.command(pass_context=True, hidden=True)
 @checks.activeraidchannel()
 async def waiting(ctx):
-    await Meowth.send_message(ctx.message.channel, _("Meowth! We've moved this command to **!list here**."))
+    await Meowth.send_message(ctx.message.channel, _("Magik Bot! We've moved this command to **!list here**."))
 
 @Meowth.command(pass_context=True, hidden=True)
 @checks.activeraidchannel()
 async def omw(ctx):
-    await Meowth.send_message(ctx.message.channel, content = _("Meowth! Hey {member}, I don't know if you meant **!coming** to say that you are coming or **!list coming** to see the other trainers on their way").format(member=ctx.message.author.mention))
+    await Meowth.send_message(ctx.message.channel, content = _("Magik Bot! Hey {member}, I don't know if you meant **!coming** to say that you are coming or **!list coming** to see the other trainers on their way").format(member=ctx.message.author.mention))
 
 """
 Notifications
@@ -1692,10 +1692,10 @@ async def want(ctx):
     """Add a Pokemon to your wanted list.
 
     Usage: !want <species>
-    Meowth will mention you if anyone reports seeing
+    Magik Bot will mention you if anyone reports seeing
     this species in their !wild or !raid command."""
 
-    """Behind the scenes, Meowth tracks user !wants by
+    """Behind the scenes, Magik Bot tracks user !wants by
     creating a server role for the Pokemon species, and
     assigning it to the user."""
     message = ctx.message
@@ -1758,7 +1758,7 @@ async def want(ctx):
             want_img_url = "https://raw.githubusercontent.com/FoglyOgly/Meowth/master/images/pkmn/{0}_.png?cache=2".format(str(want_number).zfill(3)) #This part embeds the sprite
             want_embed = discord.Embed(colour=server.me.colour)
             want_embed.set_thumbnail(url=want_img_url)
-            await Meowth.send_message(channel, content=_("Meowth! Got it! {member} wants {pokemon}").format(member=ctx.message.author.mention, pokemon=added_list[0].capitalize()),embed=want_embed)
+            await Meowth.send_message(channel, content=_("Magik Bot! Got it! {member} wants {pokemon}").format(member=ctx.message.author.mention, pokemon=added_list[0].capitalize()),embed=want_embed)
             return
         elif len(spellcheck_dict) == 1:
             msg = "Meowth! {word} isn't a Pokemon!".format(word=spellcheck_list[0])
@@ -1767,10 +1767,10 @@ async def want(ctx):
             await Meowth.send_message(channel, msg)
             return
         elif len(already_want_list) == 1:
-            await Meowth.send_message(channel, content="Meowth! {member}, I already know you want {pokemon}!".format(member=ctx.message.author.mention, pokemon=already_want_list[0].capitalize()))
+            await Meowth.send_message(channel, content="Magik Bot! {member}, I already know you want {pokemon}!".format(member=ctx.message.author.mention, pokemon=already_want_list[0].capitalize()))
             return
     else:
-        confirmation_msg = "Meowth! {member}, out of your total {count} items:".format(member=ctx.message.author.mention,count=added_count + already_want_count + len(spellcheck_dict))
+        confirmation_msg = "Magik Bot! {member}, out of your total {count} items:".format(member=ctx.message.author.mention,count=added_count + already_want_count + len(spellcheck_dict))
         if added_count > 0:
             confirmation_msg += "\n**{added_count} Added:** \n\t{added_list}".format(added_count=added_count, added_list=", ".join(added_list))
         if already_want_count > 0:
@@ -1794,7 +1794,7 @@ async def unwant(ctx):
     Usage: !unwant <species>
     You will no longer be notified of reports about this Pokemon."""
 
-    """Behind the scenes, Meowth removes the user from
+    """Behind the scenes, Magik Bot removes the user from
     the server role for the Pokemon species."""
     message = ctx.message
     server = message.server
@@ -1818,7 +1818,7 @@ async def unwant(ctx):
             if pkmn_match:
                 entered_unwant = pkmn_match
             else:
-                msg = "Meowth! {word} isn't a Pokemon!".format(word=entered_unwant)
+                msg = "Magik Bot! {word} isn't a Pokemon!".format(word=entered_unwant)
                 if spellcheck(entered_unwant) != entered_unwant:
                     msg += " Did you mean {correction}?".format(correction=spellcheck(entered_unwant))
                 await Meowth.send_message(message.channel, msg)
@@ -1843,7 +1843,7 @@ async def all(ctx):
     Usage: !unwant all
     All Pokemon roles are removed."""
 
-    """Behind the scenes, Meowth removes the user from
+    """Behind the scenes, Magik Bot removes the user from
     the server role for the Pokemon species."""
     message = ctx.message
     server = message.server
@@ -1885,7 +1885,7 @@ async def _wild(message):
     wild_split = message.clean_content.split()
     del wild_split[0]
     if len(wild_split) <= 1:
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Usage: **!wild <pokemon name> <location>**"))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Usage: **!wild <pokemon name> <location>**"))
         return
     else:
         content = " ".join(wild_split)
@@ -1899,7 +1899,7 @@ async def _wild(message):
                 try:
                     wild_details = content.split(' ',2)[2]
                 except IndexError:
-                    await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Usage: **!wild <pokemon name> <location>**"))
+                    await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Usage: **!wild <pokemon name> <location>**"))
                     return
         wild_gmaps_link = create_gmaps_query(wild_details, message.channel)
         rgx = r"[^a-zA-Z0-9]"
@@ -1925,14 +1925,14 @@ async def _wild(message):
             wild = wild.mention
         wild_number = pkmn_info['pokemon_list'].index(entered_wild) + 1
         wild_img_url = "https://raw.githubusercontent.com/FoglyOgly/Meowth/master/images/pkmn/{0}_.png?cache=2".format(str(wild_number).zfill(3))
-        wild_embed = discord.Embed(title=_("Meowth! Click here for my directions to the wild {pokemon}!").format(pokemon=entered_wild.capitalize()),description=_("Ask {author} if my directions aren't perfect!").format(author=message.author.name),url=wild_gmaps_link,colour=message.server.me.colour)
+        wild_embed = discord.Embed(title=_("Magik Bot! Click here for my directions to the wild {pokemon}!").format(pokemon=entered_wild.capitalize()),description=_("Ask {author} if my directions aren't perfect!").format(author=message.author.name),url=wild_gmaps_link,colour=message.server.me.colour)
         wild_embed.add_field(name="**Details:**", value=_("{pokemon} ({pokemonnumber}) {type}").format(pokemon=entered_wild.capitalize(),pokemonnumber=str(wild_number),type="".join(get_type(message.server, wild_number)),inline=True))
         if message.author.avatar:
             wild_embed.set_footer(text=_("Reported by @{author} - {timestamp}").format(author=message.author.display_name, timestamp=timestamp), icon_url=_("https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.{format}?size={size}".format(user=message.author, format="jpg", size=32)))
         else:
             wild_embed.set_footer(text=_("Reported by @{author} - {timestamp}").format(author=message.author.display_name, timestamp=timestamp), icon_url=message.author.default_avatar_url)
         wild_embed.set_thumbnail(url=wild_img_url)
-        wildreportmsg = await Meowth.send_message(message.channel, content=_("Meowth! Wild {pokemon} reported by {member}! Details: {location_details}").format(pokemon=wild, member=message.author.mention, location_details=wild_details),embed=wild_embed)
+        wildreportmsg = await Meowth.send_message(message.channel, content=_("Magik Bot! Wild {pokemon} reported by {member}! Details: {location_details}").format(pokemon=wild, member=message.author.mention, location_details=wild_details),embed=wild_embed)
         expiremsg = _("**This {pokemon} has despawned!**").format(pokemon=entered_wild.capitalize())
         await asyncio.sleep(3600)
         try:
@@ -1951,7 +1951,7 @@ async def raid(ctx):
     Google maps link and post the link to the same channel the report was made in.
     Meowth's message will also include the type weaknesses of the boss.
 
-    Finally, Meowth will create a separate channel for the raid report, for the purposes of organizing the raid."""
+    Finally, Magik Bot will create a separate channel for the raid report, for the purposes of organizing the raid."""
     await _raid(ctx.message)
 
 async def _raid(message):
@@ -1963,12 +1963,12 @@ async def _raid(message):
             eggdetails = server_dict[message.server.id]['raidchannel_dict'][message.channel.id]
             egglevel = eggdetails['egglevel']
         else:
-            await Meowth.send_message(message.channel, _("Meowth! Please restrict raid reports to a city channel!"))
+            await Meowth.send_message(message.channel, _("Magik Bot! Please restrict raid reports to a city channel!"))
             return
     raid_split = message.clean_content.split()
     del raid_split[0]
     if len(raid_split) == 0:
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Usage: **!raid <pokemon name> <location>**"))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Usage: **!raid <pokemon name> <location>**"))
         return
     if raid_split[0] == "egg":
         await _raidegg(message)
@@ -1978,7 +1978,7 @@ async def _raid(message):
         egglevel = eggdetails['egglevel']
         if raid_split[0].lower() == 'assume':
             if config['allow_assume'][egglevel] == "False":
-                await Meowth.send_message(message.channel, _("Meowth! **!raid assume** is not allowed in this level egg."))
+                await Meowth.send_message(message.channel, _("Magik Bot! **!raid assume** is not allowed in this level egg."))
                 return
             if server_dict[message.channel.server.id]['raidchannel_dict'][message.channel.id]['active'] == False:
                 await _eggtoraid(raid_split[1].lower(), message.channel)
@@ -1991,13 +1991,13 @@ async def _raid(message):
                 await _eggtoraid(" ".join(raid_split).lower(), message.channel)
                 return
             else:
-                await Meowth.send_message(message.channel, _("Meowth! Please wait until the egg has hatched before changing it to an open raid!"))
+                await Meowth.send_message(message.channel, _("Magik Bot! Please wait until the egg has hatched before changing it to an open raid!"))
                 return
     entered_raid = re.sub("[\@]", "", raid_split[0].lower())
     entered_raid = get_name(entered_raid).lower() if entered_raid.isdigit() else entered_raid.lower()
     del raid_split[0]
     if len(raid_split) == 0:
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Usage: **!raid <pokemon name> <location>**"))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Usage: **!raid <pokemon name> <location>**"))
         return
     if raid_split[-1].isdigit():
         raidexp = int(raid_split[-1])
@@ -2024,7 +2024,7 @@ async def _raid(message):
     if pkmn_match:
         entered_raid = pkmn_match
     else:
-        msg = "Meowth! {word} isn't a Pokemon!".format(word=entered_raid)
+        msg = "Magik bot! {word} isn't a Pokemon!".format(word=entered_raid)
         if spellcheck(entered_raid) != entered_raid:
             msg += " Did you mean {correction}?".format(correction=spellcheck(entered_raid))
         await Meowth.send_message(message.channel, msg)
@@ -2032,18 +2032,18 @@ async def _raid(message):
 
     raid_match = True if entered_raid in get_raidlist() else False
     if not raid_match:
-        await Meowth.send_message(message.channel, _("Meowth! The Pokemon {pokemon} does not appear in raids!").format(pokemon=entered_raid.capitalize()))
+        await Meowth.send_message(message.channel, _("Magik Bot! The Pokemon {pokemon} does not appear in raids!").format(pokemon=entered_raid.capitalize()))
         return
 
     if raidexp is not False:
         if _timercheck(raidexp, raid_info["raid_eggs"][get_level(entered_raid)]['raidtime']):
-            await Meowth.send_message(message.channel, _("Meowth...that's too long. Level {raidlevel} raids currently last no more than {raidtime} minutes...").format(raidlevel=get_level(entered_raid), raidtime=raid_info["raid_eggs"][get_level(entered_raid)]['raidtime']))
+            await Meowth.send_message(message.channel, _("Magik Bot...that's too long. Level {raidlevel} raids currently last no more than {raidtime} minutes...").format(raidlevel=get_level(entered_raid), raidtime=raid_info["raid_eggs"][get_level(entered_raid)]['raidtime']))
             return
 
     raid_details = " ".join(raid_split)
     raid_details = raid_details.strip()
     if raid_details == '':
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Usage: **!raid <pokemon name> <location>**"))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Usage: **!raid <pokemon name> <location>**"))
         return
     raid_gmaps_link = create_gmaps_query(raid_details, message.channel)
 
@@ -2062,7 +2062,7 @@ async def _raid(message):
         raid = raid.mention
     raid_number = pkmn_info['pokemon_list'].index(entered_raid) + 1
     raid_img_url = "https://raw.githubusercontent.com/FoglyOgly/Meowth/master/images/pkmn/{0}_.png?cache=2".format(str(raid_number).zfill(3))
-    raid_embed = discord.Embed(title=_("Meowth! Click here for directions to the raid!"),url=raid_gmaps_link,colour=message.server.me.colour)
+    raid_embed = discord.Embed(title=_("Magik Bot! Click here for directions to the raid!"),url=raid_gmaps_link,colour=message.server.me.colour)
     raid_embed.add_field(name="**Details:**", value=_("{pokemon} ({pokemonnumber}) {type}").format(pokemon=entered_raid.capitalize(),pokemonnumber=str(raid_number),type="".join(get_type(message.server, raid_number)),inline=True))
     raid_embed.add_field(name="**Weaknesses:**", value=_("{weakness_list}").format(weakness_list=weakness_to_str(message.server, get_weaknesses(entered_raid))),inline=True)
     if message.author.avatar:
@@ -2070,10 +2070,10 @@ async def _raid(message):
     else:
         raid_embed.set_footer(text=_("Reported by @{author} - {timestamp}").format(author=message.author.display_name, timestamp=timestamp), icon_url=message.author.default_avatar_url)
     raid_embed.set_thumbnail(url=raid_img_url)
-    raidreport = await Meowth.send_message(message.channel, content = _("Meowth! {pokemon} raid reported by {member}! Details: {location_details}. Coordinate in {raid_channel}").format(pokemon=entered_raid.capitalize(), member=message.author.mention, location_details=raid_details, raid_channel=raid_channel.mention),embed=raid_embed)
+    raidreport = await Meowth.send_message(message.channel, content = _("Magik Bot! {pokemon} raid reported by {member}! Details: {location_details}. Coordinate in {raid_channel}").format(pokemon=entered_raid.capitalize(), member=message.author.mention, location_details=raid_details, raid_channel=raid_channel.mention),embed=raid_embed)
     await asyncio.sleep(1) #Wait for the channel to be created.
 
-    raidmsg = _("""Meowth! {pokemon} raid reported by {member} in {citychannel}! Details: {location_details}. Coordinate here!
+    raidmsg = _("""Magik Bot! {pokemon} raid reported by {member} in {citychannel}! Details: {location_details}. Coordinate here!
 
 To update your status, choose from the following commands: **!maybe**, **!coming**, **!here**, **!cancel**. If you are bringing more than one trainer/account, add in the number of accounts total on your first status update.
 Example: `!coming 5`
@@ -2096,7 +2096,7 @@ This channel will be deleted five minutes after the timer expires.""").format(po
         'reportcity' : message.channel.id,
         'trainer_dict' : {},
         'exp' : time.time() + 60 * raid_info["raid_eggs"][get_level(entered_raid)]['raidtime'], # minutes from now
-        'manual_timer' : False, # No one has explicitly set the timer, Meowth is just assuming 2 hours
+        'manual_timer' : False, # No one has explicitly set the timer, Magik Bot is just assuming 2 hours
         'active' : True,
         'raidmessage' : raidmessage.id,
         'raidreport' : raidreport.id,
@@ -2109,7 +2109,7 @@ This channel will be deleted five minutes after the timer expires.""").format(po
     if raidexp is not False:
         await _timerset(raid_channel,raidexp)
     else:
-        await Meowth.send_message(raid_channel, content = _("Meowth! Hey {member}, if you can, set the time left on the raid using **!timerset <minutes>** so others can check it with **!timer**.").format(member=message.author.mention))
+        await Meowth.send_message(raid_channel, content = _("Magik Bot! Hey {member}, if you can, set the time left on the raid using **!timerset <minutes>** so others can check it with **!timer**.").format(member=message.author.mention))
     event_loop.create_task(expiry_check(raid_channel))
 
 @Meowth.command(pass_context=True)
@@ -2120,8 +2120,8 @@ async def raidegg(ctx):
 
     Usage: !raidegg <level> <location> [minutes]
 
-    Meowth will give a map link to the entered location and create a channel for organising the coming raid in.
-    Meowth will also provide info on the possible bosses that can hatch and their types.
+    Magik Bot will give a map link to the entered location and create a channel for organising the coming raid in.
+    Magik Bot will also provide info on the possible bosses that can hatch and their types.
 
     <level> - Required. Level of the egg. Levels are from 1 to 5.
     <location> - Required. Address/Location of the gym.
@@ -2135,14 +2135,14 @@ async def _raidegg(message):
     if raidegg_split[0].lower() == "egg":
         del raidegg_split[0]
     if len(raidegg_split) <= 1:
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Usage: **!raidegg <level> <location>**"))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Usage: **!raidegg <level> <location>**"))
         return
 
     if raidegg_split[0].isdigit():
         egg_level = int(raidegg_split[0])
         del raidegg_split[0]
     else:
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Use at least: **!raidegg <level> <location>**. Type **!help** raidegg for more info."))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Use at least: **!raidegg <level> <location>**. Type **!help** raidegg for more info."))
         return
 
     if raidegg_split[-1].isdigit():
@@ -2165,19 +2165,19 @@ async def _raidegg(message):
 
     if raidexp is not False:
         if _timercheck(raidexp, raid_info["raid_eggs"][str(egg_level)]['hatchtime']):
-            await Meowth.send_message(message.channel, _("Meowth...that's too long. Level {raidlevel} Raid Eggs currently last no more than {hatchtime} minutes...").format(raidlevel=egg_level,hatchtime=raid_info["raid_eggs"][str(egg_level)]['hatchtime']))
+            await Meowth.send_message(message.channel, _("Magik Bot...that's too long. Level {raidlevel} Raid Eggs currently last no more than {hatchtime} minutes...").format(raidlevel=egg_level,hatchtime=raid_info["raid_eggs"][str(egg_level)]['hatchtime']))
             return
 
     raid_details = " ".join(raidegg_split)
     raid_details = raid_details.strip()
     if raid_details == '':
-        await Meowth.send_message(message.channel, _("Meowth! Give more details when reporting! Use at least: **!raidegg <level> <location>**. Type **!help** raidegg for more info."))
+        await Meowth.send_message(message.channel, _("Magik Bot! Give more details when reporting! Use at least: **!raidegg <level> <location>**. Type **!help** raidegg for more info."))
         return
 
     raid_gmaps_link = create_gmaps_query(raid_details, message.channel)
 
     if egg_level > 5 or egg_level == 0:
-        await Meowth.send_message(message.channel, _("Meowth! Raid egg levels are only from 1-5!"))
+        await Meowth.send_message(message.channel, _("Magik Bot! Raid egg levels are only from 1-5!"))
         return
     else:
         egg_level = str(egg_level)
@@ -2191,7 +2191,7 @@ async def _raidegg(message):
         raid_channel_name = "level-" + egg_level + "-egg-" + sanitize_channel_name(raid_details)
         raid_channel = await Meowth.create_channel(message.server, raid_channel_name, *message.channel.overwrites)
         raid_img_url = "https://raw.githubusercontent.com/FoglyOgly/Meowth/master/images/eggs/{}?cache=2".format(str(egg_img))
-        raid_embed = discord.Embed(title=_("Meowth! Click here for directions to the coming raid!"),url=raid_gmaps_link,colour=message.server.me.colour)
+        raid_embed = discord.Embed(title=_("Magik Bot! Click here for directions to the coming raid!"),url=raid_gmaps_link,colour=message.server.me.colour)
         if len(egg_info['pokemon']) > 1:
             raid_embed.add_field(name="**Possible Bosses:**", value=_("{bosslist1}").format(bosslist1="\n".join(boss_list[::2])), inline=True)
             raid_embed.add_field(name="\u200b", value=_("{bosslist2}").format(bosslist2="\n".join(boss_list[1::2])), inline=True)
@@ -2203,10 +2203,10 @@ async def _raidegg(message):
         else:
             raid_embed.set_footer(text=_("Reported by @{author} - {timestamp}").format(author=message.author.display_name, timestamp=timestamp), icon_url=message.author.default_avatar_url)
         raid_embed.set_thumbnail(url=raid_img_url)
-        raidreport = await Meowth.send_message(message.channel, content = _("Meowth! Level {level} raid egg reported by {member}! Details: {location_details}. Coordinate in {raid_channel}").format(level=egg_level, member=message.author.mention, location_details=raid_details, raid_channel=raid_channel.mention),embed=raid_embed)
+        raidreport = await Meowth.send_message(message.channel, content = _("Magik Bot! Level {level} raid egg reported by {member}! Details: {location_details}. Coordinate in {raid_channel}").format(level=egg_level, member=message.author.mention, location_details=raid_details, raid_channel=raid_channel.mention),embed=raid_embed)
         await asyncio.sleep(1) #Wait for the channel to be created.
 
-        raidmsg = _("""Meowth! Level {level} raid egg reported by {member} in {citychannel}! Details: {location_details}. Coordinate here!
+        raidmsg = _("""Magik Bot! Level {level} raid egg reported by {member} in {citychannel}! Details: {location_details}. Coordinate here!
 
 To update your status, choose from the following commands: **!maybe**, **!coming**, **!here**, **!cancel**. If you are bringing more than one trainer/account, add in the number of accounts total on your first status update.
 Example: `!coming 5`
@@ -2229,7 +2229,7 @@ This channel will be deleted five minutes after the timer expires.""").format(le
             'reportcity' : message.channel.id,
             'trainer_dict' : {},
             'exp' : time.time() + 60 * raid_info["raid_eggs"][egg_level]['hatchtime'], # minutes from now
-            'manual_timer' : False, # No one has explicitly set the timer, Meowth is just assuming 2 hours
+            'manual_timer' : False, # No one has explicitly set the timer, Magik Bot is just assuming 2 hours
             'active' : True,
             'raidmessage' : raidmessage.id,
             'raidreport' : raidreport.id,
@@ -2242,7 +2242,7 @@ This channel will be deleted five minutes after the timer expires.""").format(le
         if raidexp is not False:
             await _timerset(raid_channel,raidexp)
         else:
-            await Meowth.send_message(raid_channel, content = _("Meowth! Hey {member}, if you can, set the time left until the egg hatches using **!timerset <minutes>** so others can check it with **!timer**.").format(member=message.author.mention))
+            await Meowth.send_message(raid_channel, content = _("Magik Bot! Hey {member}, if you can, set the time left until the egg hatches using **!timerset <minutes>** so others can check it with **!timer**.").format(member=message.author.mention))
         if len(raid_info['raid_eggs'][egg_level]['pokemon']) == 1:
             await _eggassume("assume "+ get_name(raid_info['raid_eggs'][egg_level]['pokemon'][0]), raid_channel)
         event_loop.create_task(expiry_check(raid_channel))
@@ -2267,18 +2267,18 @@ async def _eggassume(args, raid_channel):
     if pkmn_match:
         entered_raid = pkmn_match
     else:
-        msg = "Meowth! {word} isn't a Pokemon!".format(word=entered_raid)
+        msg = "Magik Bot! {word} isn't a Pokemon!".format(word=entered_raid)
         if spellcheck(entered_raid) != entered_raid:
             msg += " Did you mean {correction}?".format(correction=spellcheck(entered_raid))
         await Meowth.send_message(raid_channel, msg)
         return
     raid_match = True if entered_raid in get_raidlist() else False
     if not raid_match:
-        await Meowth.send_message(raid_channel, _("Meowth! The Pokemon {pokemon} does not appear in raids!").format(pokemon=entered_raid.capitalize()))
+        await Meowth.send_message(raid_channel, _("Magik Bot! The Pokemon {pokemon} does not appear in raids!").format(pokemon=entered_raid.capitalize()))
         return
     else:
         if get_number(entered_raid) not in raid_info['raid_eggs'][egglevel]['pokemon']:
-            await Meowth.send_message(raid_channel, _("Meowth! The Pokemon {pokemon} does not hatch from level {level} raid eggs!").format(pokemon=entered_raid.capitalize(), level=egglevel))
+            await Meowth.send_message(raid_channel, _("Magik Bot! The Pokemon {pokemon} does not hatch from level {level} raid eggs!").format(pokemon=entered_raid.capitalize(), level=egglevel))
             return
     eggdetails['pokemon'] = entered_raid
     oldembed = raid_message.embeds[0]
@@ -2296,7 +2296,7 @@ async def _eggassume(args, raid_channel):
         raidrole = raidrole.mention
     raid_number = pkmn_info['pokemon_list'].index(entered_raid) + 1
     raid_img_url = "https://raw.githubusercontent.com/doonce/Meowth/master/images/pkmn/{0}_.png?cache=nono".format(str(raid_number).zfill(3))
-    raid_embed = discord.Embed(title=_("Meowth! Click here for directions to the coming raid!"),url=raid_gmaps_link,colour=raid_channel.server.me.colour)
+    raid_embed = discord.Embed(title=_("Magik Bot! Click here for directions to the coming raid!"),url=raid_gmaps_link,colour=raid_channel.server.me.colour)
     raid_embed.add_field(name="**Details:**", value=_("{pokemon} ({pokemonnumber}) {type}").format(pokemon=entered_raid.capitalize(),pokemonnumber=str(raid_number),type="".join(get_type(raid_channel.server, raid_number)),inline=True))
     raid_embed.add_field(name="**Weaknesses:**", value=_("{weakness_list}").format(weakness_list=weakness_to_str(raid_channel.server, get_weaknesses(entered_raid))),inline=True)
     for field in oldembed['fields']:
@@ -2315,7 +2315,7 @@ async def _eggassume(args, raid_channel):
         egg_report = getegg_report.id
     except discord.errors.NotFound:
         egg_report = None
-    await Meowth.send_message(raid_channel, _("Meowth! This egg will be assumed to be {pokemon} when it hatches!").format(pokemon=raidrole))
+    await Meowth.send_message(raid_channel, _("Magik Bot! This egg will be assumed to be {pokemon} when it hatches!").format(pokemon=raidrole))
     server_dict[raid_channel.server.id]['raidchannel_dict'][raid_channel.id] = eggdetails
     return
 
@@ -2345,8 +2345,8 @@ async def _eggtoraid(entered_raid, raid_channel):
     end = datetime.datetime.utcfromtimestamp(raidexp) + datetime.timedelta(hours=server_dict[raid_channel.server.id]['offset'])
     if egglevel.isdigit():
         hatchtype = "raid"
-        raidreportcontent = _("Meowth! The egg has hatched into a {pokemon} raid! Details: {location_details}. Coordinate in {raid_channel}").format(pokemon=entered_raid.capitalize(), location_details=egg_address, raid_channel=raid_channel.mention)
-        raidmsg = _("""Meowth! The egg reported by {member} in {citychannel} hatched into a {pokemon} raid! Details: {location_details}. Coordinate here!
+        raidreportcontent = _("Magik Bot! The egg has hatched into a {pokemon} raid! Details: {location_details}. Coordinate in {raid_channel}").format(pokemon=entered_raid.capitalize(), location_details=egg_address, raid_channel=raid_channel.mention)
+        raidmsg = _("""Magik Bot! The egg reported by {member} in {citychannel} hatched into a {pokemon} raid! Details: {location_details}. Coordinate here!
 
 To update your status, choose from the following commands: **!maybe**, **!coming**, **!here**, **!cancel**. If you are bringing more than one trainer/account, add in the number of accounts total on your first status update.
 Example: `!coming 5`
@@ -2364,8 +2364,8 @@ Message **!starting** when the raid is beginning to clear the raid's 'here' list
 This channel will be deleted five minutes after the timer expires.""").format(member=raid_messageauthor.mention, citychannel=reportcitychannel.mention, pokemon=entered_raid.capitalize(), location_details=egg_address)
     elif egglevel == "EX":
         hatchtype = "exraid"
-        raidreportcontent = _("Meowth! The EX egg has hatched into a {pokemon} raid! Details: {location_details}. Use the **!invite** command to gain access and coordinate in {raid_channel}").format(pokemon=entered_raid.capitalize(), location_details=egg_address, raid_channel=raid_channel.mention)
-        raidmsg = _("""Meowth! {pokemon} EX raid reported by {member} in {citychannel}! Details: {location_details}. Coordinate here after using **!invite** to gain access!
+        raidreportcontent = _("Magik Bot! The EX egg has hatched into a {pokemon} raid! Details: {location_details}. Use the **!invite** command to gain access and coordinate in {raid_channel}").format(pokemon=entered_raid.capitalize(), location_details=egg_address, raid_channel=raid_channel.mention)
+        raidmsg = _("""Magik Bot! {pokemon} EX raid reported by {member} in {citychannel}! Details: {location_details}. Coordinate here after using **!invite** to gain access!
 
 To update your status, choose from the following commands: **!maybe**, **!coming**, **!here**, **!cancel**. If you are bringing more than one trainer/account, add in the number of accounts total on your first status update.
 Example: `!coming 5`
@@ -2387,18 +2387,18 @@ This channel will be deleted five minutes after the timer expires.""").format(po
     if pkmn_match:
         entered_raid = pkmn_match
     else:
-        msg = "Meowth! {word} isn't a Pokemon!".format(word=entered_raid)
+        msg = "Magik Bot! {word} isn't a Pokemon!".format(word=entered_raid)
         if spellcheck(entered_raid) != entered_raid:
             msg += " Did you mean {correction}?".format(correction=spellcheck(entered_raid))
         await Meowth.send_message(raid_channel, msg)
         return
     raid_match = True if entered_raid in get_raidlist() else False
     if not raid_match:
-        await Meowth.send_message(raid_channel, _("Meowth! The Pokemon {pokemon} does not appear in raids!").format(pokemon=entered_raid.capitalize()))
+        await Meowth.send_message(raid_channel, _("Magik Bot! The Pokemon {pokemon} does not appear in raids!").format(pokemon=entered_raid.capitalize()))
         return
     else:
         if get_number(entered_raid) not in raid_info['raid_eggs'][egglevel]['pokemon']:
-            await Meowth.send_message(raid_channel, _("Meowth! The Pokemon {pokemon} does not hatch from level {level} raid eggs!").format(pokemon=entered_raid.capitalize(), level=egglevel))
+            await Meowth.send_message(raid_channel, _("Magik Bot! The Pokemon {pokemon} does not hatch from level {level} raid eggs!").format(pokemon=entered_raid.capitalize(), level=egglevel))
             return
     raid_channel_name = entered_raid + "-" + sanitize_channel_name(egg_address)
     oldembed = raid_message.embeds[0]
@@ -2416,7 +2416,7 @@ This channel will be deleted five minutes after the timer expires.""").format(po
         raid = raid.mention
     raid_number = pkmn_info['pokemon_list'].index(entered_raid) + 1
     raid_img_url = "https://raw.githubusercontent.com/FoglyOgly/Meowth/master/images/pkmn/{0}_.png?cache=2".format(str(raid_number).zfill(3))
-    raid_embed = discord.Embed(title=_("Meowth! Click here for directions to the raid!"),url=raid_gmaps_link,colour=raid_channel.server.me.colour)
+    raid_embed = discord.Embed(title=_("Magik Bot! Click here for directions to the raid!"),url=raid_gmaps_link,colour=raid_channel.server.me.colour)
     raid_embed.add_field(name="**Details:**", value=_("{pokemon} ({pokemonnumber}) {type}").format(pokemon=entered_raid.capitalize(),pokemonnumber=str(raid_number),type="".join(get_type(raid_channel.server, raid_number)),inline=True))
     raid_embed.add_field(name="**Weaknesses:**", value=_("{weakness_list}").format(weakness_list=weakness_to_str(raid_channel.server, get_weaknesses(entered_raid))),inline=True)
     raid_embed.set_footer(text=oldembed['footer']['text'], icon_url=oldembed['footer']['icon_url'])
@@ -2428,7 +2428,7 @@ This channel will be deleted five minutes after the timer expires.""").format(po
         if trainer_dict[trainer]['status'] =='maybe' or trainer_dict[trainer]['status'] =='omw' or trainer_dict[trainer]['status'] =='waiting':
             user = raid_channel.server.get_member(trainer)
             trainer_list.append(user.mention)
-    await Meowth.send_message(raid_channel, content = _("Meowth! Trainers {trainer_list}: The raid egg has just hatched into a {pokemon} raid!\nIf you couldn't before, you're now able to update your status with **!coming** or **!here**. If you've changed your plans, use **!cancel**.").format(trainer_list=", ".join(trainer_list), pokemon=raid), embed = raid_embed)
+    await Meowth.send_message(raid_channel, content = _("Magik Bot! Trainers {trainer_list}: The raid egg has just hatched into a {pokemon} raid!\nIf you couldn't before, you're now able to update your status with **!coming** or **!here**. If you've changed your plans, use **!cancel**.").format(trainer_list=", ".join(trainer_list), pokemon=raid), embed = raid_embed)
     for field in oldembed['fields']:
         if "team" in field['name'].lower() or "status" in field['name'].lower():
             raid_embed.add_field(name=field['name'], value=field['value'], inline=field['inline'])
@@ -2621,30 +2621,30 @@ async def _invite(ctx):
                             exraidlist += '\n' + str(exraidcount) + '.   ' + channel.mention
                             exraid_dict[str(exraidcount)] = channel
                 if exraidcount > 0:
-                    await Meowth.send_message(ctx.message.channel, "Meowth! {0}, it looks like you've got an EX Raid invitation! The following {1} EX Raids have been reported: \n {2} \n Reply with the number of the EX Raid you have been invited to. If none of them match your invite, type 'N' and report it with **!exraid**".format(ctx.message.author.mention, str(exraidcount), exraidlist))
+                    await Meowth.send_message(ctx.message.channel, "Magik Bot! {0}, it looks like you've got an EX Raid invitation! The following {1} EX Raids have been reported: \n {2} \n Reply with the number of the EX Raid you have been invited to. If none of them match your invite, type 'N' and report it with **!exraid**".format(ctx.message.author.mention, str(exraidcount), exraidlist))
                     reply = await Meowth.wait_for_message(author=ctx.message.author)
                     if reply.content.lower() == 'n':
-                        await Meowth.send_message(ctx.message.channel, "Meowth! Be sure to report your EX Raid with **!exraid**!")
+                        await Meowth.send_message(ctx.message.channel, "Magik Bot! Be sure to report your EX Raid with **!exraid**!")
                     elif not reply.content.isdigit() or int(reply.content) > exraidcount:
-                        await Meowth.send_message(ctx.message.channel, "Meowth! I couldn't tell which EX Raid you meant! Try the **!invite** command again, and make sure you respond with the number of the channel that matches!")
+                        await Meowth.send_message(ctx.message.channel, "Magik Bot! I couldn't tell which EX Raid you meant! Try the **!invite** command again, and make sure you respond with the number of the channel that matches!")
                     elif int(reply.content) <= exraidcount and int(reply.content) > 0:
                         overwrite = discord.PermissionOverwrite()
                         overwrite.send_messages = True
                         overwrite.read_messages = True
                         exraid_channel = exraid_dict[str(int(reply.content))]
                         await Meowth.edit_channel_permissions(exraid_channel, ctx.message.author, overwrite)
-                        await Meowth.send_message(ctx.message.channel, "Meowth! Alright {0}, you can now send messages in {1}! Make sure you let the trainers in there know if you can make it to the EX Raid!".format(ctx.message.author.mention, exraid_channel.mention))
+                        await Meowth.send_message(ctx.message.channel, "Magik Bot! Alright {0}, you can now send messages in {1}! Make sure you let the trainers in there know if you can make it to the EX Raid!".format(ctx.message.author.mention, exraid_channel.mention))
                         await _maybe(exraid_channel,ctx.message.author,1,party=None)
                     else:
-                        await Meowth.send_message(ctx.message.channel, "Meowth! I couldn't understand your reply! Try the **!invite** command again!")
+                        await Meowth.send_message(ctx.message.channel, "Magik Bot! I couldn't understand your reply! Try the **!invite** command again!")
                 else:
-                    await Meowth.send_message(ctx.message.channel, "Meowth! No EX Raids have been reported in this server! Use **!exraid** to report one!")
+                    await Meowth.send_message(ctx.message.channel, "Magik Bot! No EX Raids have been reported in this server! Use **!exraid** to report one!")
             else:
-                await Meowth.send_message(ctx.message.channel, "Meowth! That doesn't look like an EX Raid invitation to me! If it is, please message an admin to get added to the EX Raid channel manually!")
+                await Meowth.send_message(ctx.message.channel, "Magik Bot! That doesn't look like an EX Raid invitation to me! If it is, please message an admin to get added to the EX Raid channel manually!")
         else:
-            await Meowth.send_message(ctx.message.channel, "Meowth! Your attachment was not a supported image format!")
+            await Meowth.send_message(ctx.message.channel, "Magik Bot! Your attachment was not a supported image format!")
     else:
-        await Meowth.send_message(ctx.message.channel, "Meowth! Please upload your screenshot directly to Discord!")
+        await Meowth.send_message(ctx.message.channel, "Magik Bot! Please upload your screenshot directly to Discord!")
 
 """
 Raid Channel Management
@@ -2683,7 +2683,7 @@ async def timerset(ctx,timer):
 
     Usage: !timerset <minutes>
     Works only in raid channels, can be set or overridden by anyone.
-    Meowth displays the end time in HH:MM local time."""
+    Magik Bot displays the end time in HH:MM local time."""
     message = ctx.message
     channel = message.channel
     server = message.server
@@ -2705,13 +2705,13 @@ async def timerset(ctx,timer):
             if h.isdigit() and m.isdigit():
                 raidexp = 60 * int(h) + int(m)
             else:
-                await Meowth.send_message(channel, "Meowth! I couldn't understand your time format. Try again like this: **!timerset <minutes>**")
+                await Meowth.send_message(channel, "Magik Bot! I couldn't understand your time format. Try again like this: **!timerset <minutes>**")
                 return
         else:
-            await Meowth.send_message(channel, "Meowth! I couldn't understand your time format. Try again like this: **!timerset <minutes>**")
+            await Meowth.send_message(channel, "Magik Bot! I couldn't understand your time format. Try again like this: **!timerset <minutes>**")
             return
         if _timercheck(raidexp, maxtime):
-            await Meowth.send_message(channel, _("Meowth...that's too long. Level {raidlevel} {raidtype}s currently last no more than {maxtime} minutes...").format(raidlevel=str(raidlevel),raidtype=raidtype.capitalize(), maxtime=str(maxtime)))
+            await Meowth.send_message(channel, _("Magik Bot...that's too long. Level {raidlevel} {raidtype}s currently last no more than {maxtime} minutes...").format(raidlevel=str(raidlevel),raidtype=raidtype.capitalize(), maxtime=str(maxtime)))
             return
         await _timerset(channel, raidexp)
 
@@ -2729,7 +2729,7 @@ async def timerset(ctx,timer):
                         if start.month < now.month:
                             start = start.replace(year=now.year+1)
                     except ValueError:
-                        await Meowth.send_message(channel, _("Meowth! Your timer wasn't formatted correctly. Change your **!timerset** to match this format: **MM/DD HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
+                        await Meowth.send_message(channel, _("Magik Bot! Your timer wasn't formatted correctly. Change your **!timerset** to match this format: **MM/DD HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
                         return
                 else:
                     try:
@@ -2737,16 +2737,16 @@ async def timerset(ctx,timer):
                         if start.month < now.month:
                             start = start.replace(year=now.year+1)
                     except ValueError:
-                        await Meowth.send_message(channel, _("Meowth! Your timer wasn't formatted correctly. Change your **!timerset** to match this format: **MM/DD HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
+                        await Meowth.send_message(channel, _("Magik Bot! Your timer wasn't formatted correctly. Change your **!timerset** to match this format: **MM/DD HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
                         return
             diff = start - now
             total = (diff.total_seconds() / 60)
             if now <= start:
                 await _timerset(channel, total)
             elif now > start:
-                await Meowth.send_message(channel, _("Meowth! Please enter a time in the future."))
+                await Meowth.send_message(channel, _("Magik Bot! Please enter a time in the future."))
         else:
-            await Meowth.send_message(channel, _("Meowth! Timerset isn't supported for EX Raids after they have hatched."))
+            await Meowth.send_message(channel, _("Magik Bot! Timerset isn't supported for EX Raids after they have hatched."))
 
 def _timercheck(time, maxtime):
     return time > maxtime
@@ -2787,7 +2787,7 @@ async def _timerset(raidchannel, exptime):
 @Meowth.command(pass_context=True)
 @checks.raidchannel()
 async def timer(ctx):
-    """Have Meowth resend the expire time message for a raid.
+    """Have Magik Bot resend the expire time message for a raid.
 
     Usage: !timer
     The expiry time should have been previously set with !timerset."""
@@ -2830,13 +2830,13 @@ async def starttime(ctx):
             try:
                 start = datetime.datetime.strptime(" ".join(start_split), '%I:%M %p').replace(year=now.year, month=now.month, day=now.day)
             except ValueError:
-                await Meowth.send_message(channel, _("Meowth! Your start time wasn't formatted correctly. Change your **!starttime** to match this format: **HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
+                await Meowth.send_message(channel, _("Magik Bot! Your start time wasn't formatted correctly. Change your **!starttime** to match this format: **HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
                 return
         else:
             try:
                 start = datetime.datetime.strptime(" ".join(start_split), '%H:%M').replace(year=now.year, month=now.month, day=now.day)
             except ValueError:
-                await Meowth.send_message(channel, _("Meowth! Your start time wasn't formatted correctly. Change your **!starttime** to match this format: **HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
+                await Meowth.send_message(channel, _("Magik Bot! Your start time wasn't formatted correctly. Change your **!starttime** to match this format: **HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)"))
                 return
         if egglevel == "EX":
             hatch = datetime.datetime.utcfromtimestamp(rc_d['exp']) + datetime.timedelta(hours=server_dict[server.id]['offset'])
@@ -2844,16 +2844,16 @@ async def starttime(ctx):
         diff = start - now
         total = (diff.total_seconds() / 60)
         if total > maxtime:
-            await Meowth.send_message(channel, _("Meowth! The raid will be over before that...."))
+            await Meowth.send_message(channel, _("Magik Bot! The raid will be over before that...."))
             return
         if now > start:
-            await Meowth.send_message(channel, _("Meowth! Please enter a time in the future."))
+            await Meowth.send_message(channel, _("Magik Bot! Please enter a time in the future."))
             return
         if total < mintime:
-            await Meowth.send_message(channel, "Meowth! The egg will not hatch by then!")
+            await Meowth.send_message(channel, "Magik Bot! The egg will not hatch by then!")
             return
         if alreadyset:
-            rusure = await Meowth.send_message(channel,_("Meowth! There is already a start time of **{start}** set! Do you want to change it?").format(start=alreadyset.strftime("%I:%M %p (%H:%M)")))
+            rusure = await Meowth.send_message(channel,_("Magik Bot! There is already a start time of **{start}** set! Do you want to change it?").format(start=alreadyset.strftime("%I:%M %p (%H:%M)")))
             await asyncio.sleep(0.25)
             await Meowth.add_reaction(rusure,"✅") #checkmark
             await asyncio.sleep(0.25)
@@ -2874,23 +2874,23 @@ async def starttime(ctx):
                     await Meowth.delete_message(rusure)
                     if now <= start:
                         rc_d['starttime'] = start
-                        await Meowth.send_message(channel, _("Meowth! The current start time has been set to: **{starttime}**").format(starttime=start.strftime("%I:%M %p (%H:%M)")))
+                        await Meowth.send_message(channel, _("Magik Bot! The current start time has been set to: **{starttime}**").format(starttime=start.strftime("%I:%M %p (%H:%M)")))
                         return
         else:
             if now <= start:
                 rc_d['starttime'] = start
-                await Meowth.send_message(channel, _("Meowth! The current start time has been set to: **{starttime}**").format(starttime=start.strftime("%I:%M %p (%H:%M)")))
+                await Meowth.send_message(channel, _("Magik Bot! The current start time has been set to: **{starttime}**").format(starttime=start.strftime("%I:%M %p (%H:%M)")))
                 return
     else:
         try:
             starttime = rc_d['starttime']
             if starttime < now:
                 del rc_d['starttime']
-                await Meowth.send_message(channel, _("Meowth! No start time has been set, set one with **!starttime HH:MM AM/PM**! (You can also omit AM/PM and use 24-hour time!)"))
+                await Meowth.send_message(channel, _("Magik Bot! No start time has been set, set one with **!starttime HH:MM AM/PM**! (You can also omit AM/PM and use 24-hour time!)"))
                 return
-            await Meowth.send_message(channel, _("Meowth! The current start time is: **{starttime}**").format(starttime=starttime.strftime("%I:%M %p (%H:%M)")))
+            await Meowth.send_message(channel, _("Magik Bot! The current start time is: **{starttime}**").format(starttime=starttime.strftime("%I:%M %p (%H:%M)")))
         except KeyError:
-            await Meowth.send_message(channel, _("Meowth! No start time has been set, set one with **!starttime HH:MM AM/PM**! (You can also omit AM/PM and use 24-hour time!)"))
+            await Meowth.send_message(channel, _("Magik Bot! No start time has been set, set one with **!starttime HH:MM AM/PM**! (You can also omit AM/PM and use 24-hour time!)"))
 
 @Meowth.group(pass_context=True)
 @checks.activeraidchannel()
@@ -2914,7 +2914,7 @@ async def location(ctx):
             newembed.add_field(name=field['name'], value=field['value'], inline=field['inline'])
         newembed.set_footer(text=oldembed['footer']['text'], icon_url=oldembed['footer']['icon_url'])
         newembed.set_thumbnail(url=oldembed['thumbnail']['url'])
-        locationmsg = await Meowth.send_message(channel, content = _("Meowth! Here's the current location for the raid!\nDetails: {location}").format(location = location), embed = newembed)
+        locationmsg = await Meowth.send_message(channel, content = _("Magik Bot! Here's the current location for the raid!\nDetails: {location}").format(location = location), embed = newembed)
         await asyncio.sleep(60)
         await Meowth.delete_message(locationmsg)
 
@@ -2931,7 +2931,7 @@ async def new(ctx):
     del location_split[0]
     del location_split[0]
     if len(location_split) < 1:
-        await Meowth.send_message(message.channel, _("Meowth! We're missing the new location details! Usage: **!location new <new address>**"))
+        await Meowth.send_message(message.channel, _("Magik Bot! We're missing the new location details! Usage: **!location new <new address>**"))
         return
     else:
         report_channel = Meowth.get_channel(server_dict[message.server.id]['raidchannel_dict'][message.channel.id]['reportcity'])
@@ -2954,7 +2954,7 @@ async def new(ctx):
             if trainer_dict[trainer]['status']=='omw':
                 user = message.server.get_member(trainer)
                 otw_list.append(user.mention)
-        await Meowth.send_message(message.channel, content = _("Meowth! Someone has suggested a different location for the raid! Trainers {trainer_list}: make sure you are headed to the right place!").format(trainer_list=", ".join(otw_list)), embed = newembed)
+        await Meowth.send_message(message.channel, content = _("Magik Bot! Someone has suggested a different location for the raid! Trainers {trainer_list}: make sure you are headed to the right place!").format(trainer_list=", ".join(otw_list)), embed = newembed)
         for field in oldembed['fields']:
             if "team" in field['name'].lower() or "status" in field['name'].lower():
                 newembed.add_field(name=field['name'], value=field['value'], inline=field['inline'])
@@ -2977,7 +2977,7 @@ async def recover(ctx):
     Usage: !recover
     Only necessary after a crash."""
     if checks.check_wantchannel(ctx) or checks.check_citychannel(ctx) or checks.check_raidchannel(ctx) or checks.check_eggchannel(ctx) or checks.check_exraidchannel(ctx):
-        await Meowth.send_message(ctx.message.channel, "Meowth! I can't recover this channel because I know about it already!")
+        await Meowth.send_message(ctx.message.channel, "Magik Bot! I can't recover this channel because I know about it already!")
     else:
         channel = ctx.message.channel
         server = channel.server
@@ -3053,7 +3053,7 @@ async def recover(ctx):
             if len(raid_info['raid_eggs']['EX']['pokemon']) == 1:
                 pokemon = get_name(raid_info['raid_eggs']['EX']['pokemon'][0])
         else:
-            await Meowth.send_message(channel, "Meowth! I couldn't recognize this as a raid channel!")
+            await Meowth.send_message(channel, "Magik Bot! I couldn't recognize this as a raid channel!")
             return
 
         async for message in Meowth.logs_from(channel, limit=500):
@@ -3102,7 +3102,7 @@ async def recover(ctx):
             'pokemon' : pokemon,
             'egglevel': egglevel
             }
-        recovermsg = _("Meowth! This channel has been recovered! However, there may be some inaccuracies in what I remembered! Here's what I have:")
+        recovermsg = _("Magik Bot! This channel has been recovered! However, there may be some inaccuracies in what I remembered! Here's what I have:")
         bulletpoint = parse_emoji(ctx.message.server, ":small_blue_diamond:")
         recovermsg += "\n" + bulletpoint + await _interest(ctx)
         recovermsg += "\n" + bulletpoint + await _otw(ctx)
@@ -3140,7 +3140,7 @@ async def duplicate(ctx):
         if author.id in t_dict:
             try:
                 if t_dict[author.id]['dupereporter']:
-                    dupeauthmsg = await Meowth.send_message(channel,_("Meowth! You've already made a duplicate report for this raid!"))
+                    dupeauthmsg = await Meowth.send_message(channel,_("Magik Bot! You've already made a duplicate report for this raid!"))
                     await asyncio.sleep(10)
                     await Meowth.delete_message(dupeauthmsg)
                     return
@@ -3163,7 +3163,7 @@ async def duplicate(ctx):
     rc_d['duplicate'] = dupecount
 
     if dupecount >= 3:
-        rusure = await Meowth.send_message(channel,_("Meowth! Are you sure you wish to remove this raid?"))
+        rusure = await Meowth.send_message(channel,_("Magik Bot! Are you sure you wish to remove this raid?"))
         await asyncio.sleep(0.25)
         await Meowth.add_reaction(rusure,"✅") #checkmark
         await asyncio.sleep(0.25)
@@ -3264,9 +3264,9 @@ async def _maybe(channel, author, count, party):
             allunknown = count
         party = [allblue, allred, allyellow, allunknown]
     if count == 1:
-        await Meowth.send_message(channel, _("Meowth! {member} is interested!").format(member=author.mention))
+        await Meowth.send_message(channel, _("Magik Bot! {member} is interested!").format(member=author.mention))
     else:
-        await Meowth.send_message(channel, _("Meowth! {member} is interested with a total of {trainer_count} trainers! {blue_emoji}: {mystic} | {red_emoji}: {valor} | {yellow_emoji}: {instinct} | :grey_question:: {unknown}").format(member=author.mention, trainer_count=count, blue_emoji=parse_emoji(channel.server, config['team_dict']['mystic']),mystic=party[0],red_emoji=parse_emoji(channel.server, config['team_dict']['valor']),valor=party[1], instinct=party[2], yellow_emoji=parse_emoji(channel.server,config['team_dict']['instinct']), unknown=party[3]))
+        await Meowth.send_message(channel, _("Magik Bot! {member} is interested with a total of {trainer_count} trainers! {blue_emoji}: {mystic} | {red_emoji}: {valor} | {yellow_emoji}: {instinct} | :grey_question:: {unknown}").format(member=author.mention, trainer_count=count, blue_emoji=parse_emoji(channel.server, config['team_dict']['mystic']),mystic=party[0],red_emoji=parse_emoji(channel.server, config['team_dict']['valor']),valor=party[1], instinct=party[2], yellow_emoji=parse_emoji(channel.server,config['team_dict']['instinct']), unknown=party[3]))
 
     # Add trainer name to trainer list
     if author.id not in server_dict[channel.server.id]['raidchannel_dict'][channel.id]['trainer_dict']:
@@ -3293,7 +3293,7 @@ async def coming(ctx, *, teamcounts: str = None):
     try:
         if server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['type'] == "egg":
             if server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['pokemon'] == "":
-                await Meowth.send_message(ctx.message.channel, _("Meowth! Please wait until the raid egg has hatched before announcing you're coming or present."))
+                await Meowth.send_message(ctx.message.channel, _("Magik Bot! Please wait until the raid egg has hatched before announcing you're coming or present."))
                 return
     except:
         pass
@@ -3342,9 +3342,9 @@ async def _coming(channel, author, count, party):
             allunknown = count
         party = [allblue, allred, allyellow, allunknown]
     if count == 1:
-        await Meowth.send_message(channel, _("Meowth! {member} is on the way!").format(member=author.mention))
+        await Meowth.send_message(channel, _("Magik Bot! {member} is on the way!").format(member=author.mention))
     else:
-        await Meowth.send_message(channel, _("Meowth! {member} is on the way with a total of {trainer_count} trainers! {blue_emoji}: {mystic} | {red_emoji}: {valor} | {yellow_emoji}: {instinct} | :grey_question:: {unknown}").format(member=author.mention, trainer_count=count, blue_emoji=parse_emoji(channel.server, config['team_dict']['mystic']),mystic=party[0],red_emoji=parse_emoji(channel.server, config['team_dict']['valor']),valor=party[1], instinct=party[2], yellow_emoji=parse_emoji(channel.server,config['team_dict']['instinct']), unknown=party[3]))
+        await Meowth.send_message(channel, _("Magik Bot! {member} is on the way with a total of {trainer_count} trainers! {blue_emoji}: {mystic} | {red_emoji}: {valor} | {yellow_emoji}: {instinct} | :grey_question:: {unknown}").format(member=author.mention, trainer_count=count, blue_emoji=parse_emoji(channel.server, config['team_dict']['mystic']),mystic=party[0],red_emoji=parse_emoji(channel.server, config['team_dict']['valor']),valor=party[1], instinct=party[2], yellow_emoji=parse_emoji(channel.server,config['team_dict']['instinct']), unknown=party[3]))
 
     # Add trainer name to trainer list
     if author.id not in trainer_dict:
@@ -3371,7 +3371,7 @@ async def here(ctx, *, teamcounts: str = None):
     try:
         if server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['type'] == "egg":
             if server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['pokemon'] == "":
-                await Meowth.send_message(ctx.message.channel, _("Meowth! Please wait until the raid egg has hatched before announcing you're coming or present."))
+                await Meowth.send_message(ctx.message.channel, _("Magik Bot! Please wait until the raid egg has hatched before announcing you're coming or present."))
                 return
     except:
         pass
@@ -3426,9 +3426,9 @@ async def _here(channel, author, count, party):
             allunknown = count
         party = [allblue, allred, allyellow, allunknown]
     if count == 1:
-        await Meowth.send_message(channel, _("Meowth! {member} is at the raid!"+lobbymsg).format(member=author.mention))
+        await Meowth.send_message(channel, _("Magik Bot! {member} is at the raid!"+lobbymsg).format(member=author.mention))
     else:
-        await Meowth.send_message(channel, _("Meowth! {member} is at the raid with a total of {trainer_count} trainers! {blue_emoji}: {mystic} | {red_emoji}: {valor} | {yellow_emoji}: {instinct} | :grey_question:: {unknown}"+lobbymsg).format(member=author.mention, trainer_count=count, blue_emoji=parse_emoji(channel.server, config['team_dict']['mystic']),mystic=party[0],red_emoji=parse_emoji(channel.server, config['team_dict']['valor']),valor=party[1], instinct=party[2], yellow_emoji=parse_emoji(channel.server,config['team_dict']['instinct']), unknown=party[3]))
+        await Meowth.send_message(channel, _("Magik Bot! {member} is at the raid with a total of {trainer_count} trainers! {blue_emoji}: {mystic} | {red_emoji}: {valor} | {yellow_emoji}: {instinct} | :grey_question:: {unknown}"+lobbymsg).format(member=author.mention, trainer_count=count, blue_emoji=parse_emoji(channel.server, config['team_dict']['mystic']),mystic=party[0],red_emoji=parse_emoji(channel.server, config['team_dict']['valor']),valor=party[1], instinct=party[2], yellow_emoji=parse_emoji(channel.server,config['team_dict']['instinct']), unknown=party[3]))
     # Add trainer name to trainer list
     if author.id not in trainer_dict:
         trainer_dict[author.id] = {}
@@ -3515,7 +3515,7 @@ async def _party_status(ctx, total, teamcounts):
         if int(total) > int(team_total):
             if team_aliases[my_team][1]:
                 if unknown[1]:
-                    return await Meowth.send_message(channel, "Meowth! Something is not adding up! Try making sure your total matches what each team adds up to!")
+                    return await Meowth.send_message(channel, "Magik Bot! Something is not adding up! Try making sure your total matches what each team adds up to!")
                 unknown[1] = total - team_total
             else:
                 team_aliases[my_team][1] = total - team_total
@@ -3585,7 +3585,7 @@ async def lobby(ctx, *, count: str = None):
     try:
         if server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['type'] == "egg":
             if server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['pokemon'] == "":
-                await Meowth.send_message(ctx.message.channel, _("Meowth! Please wait until the raid egg has hatched before announcing you're coming or present."))
+                await Meowth.send_message(ctx.message.channel, _("Magik Bot! Please wait until the raid egg has hatched before announcing you're coming or present."))
                 return
     except:
         pass
@@ -3596,7 +3596,7 @@ async def lobby(ctx, *, count: str = None):
         if count.isdigit():
             count = int(count)
         else:
-            await Meowth.send_message(ctx.message.channel, _("Meowth! I can't understand how many are in your group. Just say **!here** if you're by yourself, or **!coming 5** for example if there are 5 in your group."))
+            await Meowth.send_message(ctx.message.channel, _("Magik Bot! I can't understand how many are in your group. Just say **!here** if you're by yourself, or **!coming 5** for example if there are 5 in your group."))
             return
     else:
         if ctx.message.author.id in trainer_dict:
@@ -3608,13 +3608,13 @@ async def lobby(ctx, *, count: str = None):
 
 async def _lobby(message, count):
     if 'lobby' not in server_dict[message.server.id]['raidchannel_dict'][message.channel.id]:
-        await Meowth.send_message(message.channel, "Meowth! There is no group in the lobby for you to join! Use **!starting** if the group waiting at the raid is entering the lobby!")
+        await Meowth.send_message(message.channel, "Magik Bot! There is no group in the lobby for you to join! Use **!starting** if the group waiting at the raid is entering the lobby!")
         return
     trainer_dict = server_dict[message.server.id]['raidchannel_dict'][message.channel.id]['trainer_dict']
     if count == 1:
-        await Meowth.send_message(message.channel, _("Meowth! {member} is entering the lobby!").format(member=message.author.mention))
+        await Meowth.send_message(message.channel, _("Magik Bot! {member} is entering the lobby!").format(member=message.author.mention))
     else:
-        await Meowth.send_message(message.channel, _("Meowth! {member} is entering the lobby with a total of {trainer_count} trainers!").format(member=message.author.mention, trainer_count=count))
+        await Meowth.send_message(message.channel, _("Magik Bot! {member} is entering the lobby with a total of {trainer_count} trainers!").format(member=message.author.mention, trainer_count=count))
     # Add trainer name to trainer list
     if message.author.id not in trainer_dict:
         trainer_dict[message.author.id] = {}
@@ -3637,29 +3637,29 @@ async def _cancel(channel, author):
     try:
         t_dict = server_dict[server.id]['raidchannel_dict'][channel.id]['trainer_dict'][author.id]
     except KeyError:
-        await Meowth.send_message(channel, _("Meowth! {member} has no status to cancel!").format(member=author.mention))
+        await Meowth.send_message(channel, _("Magik Bot! {member} has no status to cancel!").format(member=author.mention))
         return
 
     if t_dict['status'] == "maybe":
         if t_dict['count'] == 1:
-            await Meowth.send_message(channel, _("Meowth! {member} is no longer interested!").format(member=author.mention))
+            await Meowth.send_message(channel, _("Magik Bot! {member} is no longer interested!").format(member=author.mention))
         else:
-            await Meowth.send_message(channel, _("Meowth! {member} and their total of {trainer_count} trainers are no longer interested!").format(member=author.mention, trainer_count=t_dict['count']))
+            await Meowth.send_message(channel, _("Magik Bot! {member} and their total of {trainer_count} trainers are no longer interested!").format(member=author.mention, trainer_count=t_dict['count']))
     if t_dict['status'] == "waiting":
         if t_dict['count'] == 1:
-            await Meowth.send_message(channel, _("Meowth! {member} has left the raid!").format(member=author.mention))
+            await Meowth.send_message(channel, _("Magik Bot! {member} has left the raid!").format(member=author.mention))
         else:
-            await Meowth.send_message(channel, _("Meowth! {member} and their total of {trainer_count} trainers have left the raid!").format(member=author.mention, trainer_count=t_dict['count']))
+            await Meowth.send_message(channel, _("Magik Bot! {member} and their total of {trainer_count} trainers have left the raid!").format(member=author.mention, trainer_count=t_dict['count']))
     if t_dict['status'] == "omw":
         if t_dict['count'] == 1:
-            await Meowth.send_message(channel, _("Meowth! {member} is no longer on their way!").format(member=author.mention))
+            await Meowth.send_message(channel, _("Magik Bot! {member} is no longer on their way!").format(member=author.mention))
         else:
-            await Meowth.send_message(channel, _("Meowth! {member} and their total of {trainer_count} trainers are no longer on their way!").format(member=author.mention, trainer_count=t_dict['count']))
+            await Meowth.send_message(channel, _("Magik Bot! {member} and their total of {trainer_count} trainers are no longer on their way!").format(member=author.mention, trainer_count=t_dict['count']))
     if t_dict['status'] == "lobby":
         if t_dict['count'] == 1:
-            await Meowth.send_message(channel, "Meowth! {member} has backed out of the lobby!".format(member=author.mention))
+            await Meowth.send_message(channel, "Magik Bot! {member} has backed out of the lobby!".format(member=author.mention))
         else:
-            await Meowth.send_message(channel, "Meowth! {member} and their total of {trainer_count} trainers have backed out of the lobby!".format(member=author.mention, trainer_count=t_dict['count']))
+            await Meowth.send_message(channel, "Magik Bot! {member} and their total of {trainer_count} trainers have backed out of the lobby!".format(member=author.mention, trainer_count=t_dict['count']))
     t_dict['status'] = None
     t_dict['party'] = [0,0,0,0]
     t_dict['count'] = 1
@@ -3688,7 +3688,7 @@ async def starting(ctx):
             id_startinglist.append(trainer)
     server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['trainer_dict'] = trainer_dict
     if len(ctx_startinglist) == 0:
-        starting_str = _("Meowth! How can you start when there's no one waiting at this raid!?")
+        starting_str = _("Magik Bot! How can you start when there's no one waiting at this raid!?")
         await Meowth.send_message(ctx.message.channel, starting_str)
         return
     try:
@@ -3698,7 +3698,7 @@ async def starting(ctx):
     except KeyError:
         starttime = False
         timestr = " "
-    starting_str = _("Meowth! The group that was waiting{timestr}is starting the raid! Trainers {trainer_list}, if you are not in this group and are waiting for the next group, please respond with {here_emoji} or **!here**. If you need to ask those that just started to back out of their lobby, use **!backout**").format(timestr=timestr,trainer_list=", ".join(ctx_startinglist), here_emoji=parse_emoji(ctx.message.server, config['here_id']))
+    starting_str = _("Magik Bot! The group that was waiting{timestr}is starting the raid! Trainers {trainer_list}, if you are not in this group and are waiting for the next group, please respond with {here_emoji} or **!here**. If you need to ask those that just started to back out of their lobby, use **!backout**").format(timestr=timestr,trainer_list=", ".join(ctx_startinglist), here_emoji=parse_emoji(ctx.message.server, config['here_id']))
     server_dict[ctx.message.server.id]['raidchannel_dict'][ctx.message.channel.id]['lobby'] = time.time() + 120
     if starttime:
         starting_str += "\n\nThe start time has also been cleared, new groups can set a new start time wtih **!starttime HH:MM AM/PM** (You can also omit AM/PM and use 24-hour time!)."
@@ -3713,7 +3713,7 @@ async def starting(ctx):
             ctx_lobbycount += trainer_dict[trainer]['count']
             trainer_delete_list.append(trainer)
     if ctx_lobbycount > 0:
-        await Meowth.send_message(ctx.message.channel, "Meowth! The group of {count} in the lobby has entered the raid! Wish them luck!".format(count=str(ctx_lobbycount)))
+        await Meowth.send_message(ctx.message.channel, "Magik Bot! The group of {count} in the lobby has entered the raid! Wish them luck!".format(count=str(ctx_lobbycount)))
     for trainer in trainer_delete_list:
         del trainer_dict[trainer]
     try:
@@ -3744,13 +3744,13 @@ async def backout(ctx):
                 lobby_list.append(user.mention)
                 trainer_dict[trainer]['status'] = "waiting"
         if not lobby_list:
-            await Meowth.send_message(channel, "Meowth! There's no one else in the lobby for this raid!")
+            await Meowth.send_message(channel, "Magik Bot! There's no one else in the lobby for this raid!")
             try:
                 del server_dict[server.id]['raidchannel_dict'][channel.id]['lobby']
             except KeyError:
                 pass
             return
-        await Meowth.send_message(channel, "Meowth! {author} has indicated that the group consisting of {lobby_list} and the people with them has backed out of the lobby! If this is inaccurate, please use **!lobby** or **!cancel** to help me keep my lists accurate!".format(author=author.mention, lobby_list=", ".join(lobby_list)))
+        await Meowth.send_message(channel, "Magik Bot! {author} has indicated that the group consisting of {lobby_list} and the people with them has backed out of the lobby! If this is inaccurate, please use **!lobby** or **!cancel** to help me keep my lists accurate!".format(author=author.mention, lobby_list=", ".join(lobby_list)))
         try:
             del server_dict[server.id]['raidchannel_dict'][channel.id]['lobby']
         except KeyError:
@@ -3764,9 +3764,9 @@ async def backout(ctx):
                 lobby_list.append(user.mention)
                 trainer_list.append(trainer)
         if not lobby_list:
-            await Meowth.send_message(channel, "Meowth! There's no one in the lobby for this raid!")
+            await Meowth.send_message(channel, "Magik Bot! There's no one in the lobby for this raid!")
             return
-        backoutmsg = await Meowth.send_message(channel, "Meowth! {author} has requested a backout! If one of the following trainers reacts with the check mark, I will assume the group is backing out of the raid lobby as requested! {lobby_list}".format(author=author.mention, lobby_list = ", ".join(lobby_list)))
+        backoutmsg = await Meowth.send_message(channel, "Magik Bot! {author} has requested a backout! If one of the following trainers reacts with the check mark, I will assume the group is backing out of the raid lobby as requested! {lobby_list}".format(author=author.mention, lobby_list = ", ".join(lobby_list)))
         await asyncio.sleep(0.25)
         await Meowth.add_reaction(backoutmsg,"✅")
         def check(react,user):
@@ -3778,7 +3778,7 @@ async def backout(ctx):
             for trainer in trainer_list:
                 if trainer in trainer_dict:
                     trainer_dict[trainer]['status'] = "waiting"
-            await Meowth.send_message(channel, "Meowth! {user} confirmed the group is backing out!".format(user=res.user.mention))
+            await Meowth.send_message(channel, "Magik Bot! {user} confirmed the group is backing out!".format(user=res.user.mention))
             try:
                 del server_dict[server.id]['raidchannel_dict'][channel.id]['lobby']
             except KeyError:
@@ -3796,7 +3796,7 @@ async def list(ctx):
     Works only in raid or city channels. Calls the interested, waiting, and here lists. Also prints
     the raid timer. In city channels, lists all active raids."""
     if ctx.invoked_subcommand is None:
-        listmsg = "**Meowth!** "
+        listmsg = "**Magik Bot!** "
         server = ctx.message.server
         channel = ctx.message.channel
         now = datetime.datetime.utcnow() + datetime.timedelta(hours=server_dict[server.id]['offset'])
@@ -3882,7 +3882,7 @@ async def list(ctx):
                     listmsg += list_output(r)
 
             if activeraidnum == 0:
-                await Meowth.send_message(channel, _("Meowth! No active raids! Report one with **!raid <name> <location>**."))
+                await Meowth.send_message(channel, _("Magik Bot! No active raids! Report one with **!raid <name> <location>**."))
                 return
             else:
                 await Meowth.send_message(channel, listmsg)
@@ -3924,7 +3924,7 @@ async def interested(ctx, tag=False):
 
     Usage: !list interested
     Works only in raid channels."""
-    listmsg = "**Meowth!**"
+    listmsg = "**Magik Bot!**"
     listmsg += await _interest(ctx)
     await Meowth.send_message(ctx.message.channel, listmsg)
 
@@ -3966,7 +3966,7 @@ async def coming(ctx, tag=False):
 
     Usage: !list coming
     Works only in raid channels."""
-    listmsg = "**Meowth!**"
+    listmsg = "**Magik Bot!**"
     listmsg += await _otw(ctx)
     await Meowth.send_message(ctx.message.channel, listmsg)
 
@@ -4008,7 +4008,7 @@ async def here(ctx, tag=False):
 
     Usage: !list here
     Works only in raid channels."""
-    listmsg = "**Meowth!**"
+    listmsg = "**Magik Bot!**"
     listmsg += await _waiting(ctx)
     await Meowth.send_message(ctx.message.channel, listmsg)
 
@@ -4050,7 +4050,7 @@ async def lobby(ctx, tag=False):
 
     Usage: !list lobby
     Works only in raid channels."""
-    listmsg = "**Meowth!**"
+    listmsg = "**Magik Bot!**"
     listmsg += await _lobbylist(ctx)
     await Meowth.send_message(ctx.message.channel, listmsg)
 
@@ -4092,7 +4092,7 @@ async def teams(ctx):
 
     Usage: !list teams
     Works only in raid channels."""
-    listmsg = "**Meowth!**"
+    listmsg = "**Magik Bot!**"
     listmsg += await _teamlist(ctx)
     await Meowth.send_message(ctx.message.channel, listmsg)
 
@@ -4162,7 +4162,7 @@ async def tags(ctx):
     now = datetime.datetime.utcnow() + datetime.timedelta(hours=server_dict[server.id]['offset'])
     if checks.check_raidchannel(ctx):
         if checks.check_raidactive(ctx):
-            listmsg = "**Meowth!** "
+            listmsg = "**Magik Bot!** "
             server = ctx.message.server
             channel = ctx.message.channel
             bulletpoint = parse_emoji(ctx.message.server, ":small_blue_diamond:")
@@ -4198,7 +4198,7 @@ async def wants(ctx):
 
     Usage: !list wants
     Works only in raid channels."""
-    listmsg = "**Meowth!**"
+    listmsg = "**Magik Bot!**"
     listmsg += await _wantlist(ctx)
     await Meowth.send_message(ctx.message.channel, listmsg)
 
@@ -4221,7 +4221,7 @@ async def _wantlist(ctx):
 #     Usage: !list invites
 #     Works only in EX Raid channels."""
 #     if checks.check_exraidchannel(ctx):
-#         listmsg = "**Meowth!**"
+#         listmsg = "**Magik Bot!**"
 #         reportlist = [ctx.message.server.me.id]
 #         invitelist = []
 #         userlist = []
