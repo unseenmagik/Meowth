@@ -1401,7 +1401,7 @@ async def configure(ctx):
                                     server_dict_temp['want_channel_list'].append(want_channel.id)
                             break
                         except:
-                            await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=_("Meowth! You didn't give me enough permissions to create channels! Please check my permissions and that my role is above general roles. Let me know if you'd like me to check again.\n\nRespond with: **Y** to try again, or **N** to skip and create the missing channels yourself.")))
+                            await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=_("Magik Bot! You didn't give me enough permissions to create channels! Please check my permissions and that my role is above general roles. Let me know if you'd like me to check again.\n\nRespond with: **Y** to try again, or **N** to skip and create the missing channels yourself.")))
                             while True:
                                 wantpermswait = await Meowth.wait_for_message(author=owner, check=lambda message: message.server is None)
                                 if wantpermswait.content.lower() == "n":
@@ -1761,7 +1761,7 @@ async def want(ctx):
             await Meowth.send_message(channel, content=_("Magik Bot! Got it! {member} wants {pokemon}").format(member=ctx.message.author.mention, pokemon=added_list[0].capitalize()),embed=want_embed)
             return
         elif len(spellcheck_dict) == 1:
-            msg = "Meowth! {word} isn't a Pokemon!".format(word=spellcheck_list[0])
+            msg = "Magik Bot! {word} isn't a Pokemon!".format(word=spellcheck_list[0])
             if spellcheck_list[0] != spellcheck(spellcheck_list[0]):
                 msg += " Did you mean {correction}?".format(correction=spellcheck(spellcheck_list[0]))
             await Meowth.send_message(channel, msg)
@@ -1907,7 +1907,7 @@ async def _wild(message):
         if pkmn_match:
             entered_wild = pkmn_match
         else:
-            msg = "Meowth! {word} isn't a Pokemon!".format(word=entered_wild)
+            msg = "Magik Bot! {word} isn't a Pokemon!".format(word=entered_wild)
             if spellcheck(entered_wild) != entered_wild:
                 msg += " Did you mean {correction}?".format(correction=spellcheck(entered_wild))
             await Meowth.send_message(message.channel, msg)
@@ -2791,7 +2791,7 @@ async def timer(ctx):
 
     Usage: !timer
     The expiry time should have been previously set with !timerset."""
-    timerstr = "Meowth!"
+    timerstr = "Magik Bot!"
     timerstr += await print_raid_timer(ctx.message.channel)
     await Meowth.send_message(ctx.message.channel, timerstr)
 
