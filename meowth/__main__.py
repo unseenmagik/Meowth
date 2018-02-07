@@ -959,7 +959,7 @@ async def welcome(ctx, user: discord.Member = None):
 @Meowth.command(pass_context=True, hidden=True)
 @commands.has_permissions(manage_server=True)
 async def outputlog(ctx):
-    """Get current Meowth log.
+    """Get current Magik Bot log.
 
     Usage: !outputlog
     Output is a link to hastebin."""
@@ -1065,7 +1065,7 @@ async def announce(ctx,*,announce=None):
 @Meowth.command(pass_context=True)
 @commands.has_permissions(manage_server=True)
 async def configure(ctx):
-    """Meowth Configuration
+    """Magik Bot Configuration
 
     Usage: !configure
     Magik Bot will DM you instructions on how to configure Magik Bot for your server.
@@ -1102,12 +1102,12 @@ async def configure(ctx):
             configreplylist = ['all','team','welcome','main','regions','raid','wild','want','timezone','allmain']
             configmessage += """\n\n**Welcome Back**\nThis isn't your first time configuring. You can either reconfigure everything by replying with **all** or reply with one of the following to configure that specific setting:\n\n**all** - To redo configuration\n**team** - For Team Assignment configuration\n**welcome** - For Welcome Message configuration\n**main** - For main command configuration\n**raid** - for raid command configuration\n**wild** - for wild command configuration\n**regions** - For configuration of reporting channels or map links\n**want** - for want/unwant command configuration and channel\n**timezone** - For timezone configuration\n**allmain** - For main, regions, raid, wild, want, timezone configuration"""
             configmessage += "\n\nReply with **cancel** at any time throughout the questions to cancel the configure process."
-            await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=configmessage).set_author(name=_("Meowth Configuration - {0}").format(server), icon_url=Meowth.user.avatar_url))
+            await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=configmessage).set_author(name=_("Magik Bot Configuration - {0}").format(server), icon_url=Meowth.user.avatar_url))
         else:
             configreplylist = ['all','team','welcome','main','allmain']
             configmessage += """\n\n**Welcome Back**\nThis isn't your first time configuring. You can either reconfigure everything by replying with **all** or reply with one of the following to configure that specific setting:\n\n**all** - To redo configuration\n**team** - For Team Assignment configuration\n**welcome** - For Welcome Message configuration\n**main** - For main command configuration\n**allmain** - For main, regions, raid, wild, want, timezone configuration"""
             configmessage += "\n\nReply with **cancel** at any time throughout the questions to cancel the configure process."
-            await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=configmessage).set_author(name=_("Meowth Configuration - {0}").format(server), icon_url=Meowth.user.avatar_url))
+            await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=configmessage).set_author(name=_("Magik Bot Configuration - {0}").format(server), icon_url=Meowth.user.avatar_url))
         while True:
             configreply = await Meowth.wait_for_message(author = owner, check=lambda message: message.server is None)
             if configreply.content.lower() in configreplylist:
@@ -1121,7 +1121,7 @@ async def configure(ctx):
                 await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description="I'm sorry I don't understand. Please reply with one of the choices above."))
                 continue
     elif firstconfig == True:
-        await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=configmessage).set_author(name=_("Meowth Configuration - {0}").format(server), icon_url=Meowth.user.avatar_url))
+        await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description=configmessage).set_author(name=_("Magik Bot Configuration - {0}").format(server), icon_url=Meowth.user.avatar_url))
     #configure team
     if configcancel == False and (firstconfig == True or configgoto == "all" or configgoto == "team"):
         await Meowth.send_message(owner, embed=discord.Embed(colour=discord.Colour.lighter_grey(), description="""Team assignment allows users to assign their Pokemon Go team role using the **!team** command. If you have a bot that handles this already, you may want to disable this feature.\n\nIf you are to use this feature, ensure existing team roles are as follows: mystic, valor, instinct. These must be all lowercase letters. If they don't exist yet, I'll make some for you instead.\n\nRespond with: **N** to disable, **Y** to enable:""").set_author(name="Team Assignments", icon_url=Meowth.user.avatar_url))
@@ -1508,7 +1508,7 @@ Miscellaneous
 
 @Meowth.command(pass_context=True, name="uptime")
 async def cmd_uptime(ctx):
-    """Shows Meowth's uptime"""
+    """Shows Magik Bot's uptime"""
     server = ctx.message.server
     channel = ctx.message.channel
     embed_colour = server.me.colour or discord.Colour.lighter_grey()
@@ -1542,10 +1542,10 @@ async def _uptime(bot):
 @Meowth.command(pass_context=True)
 async def about(ctx):
     """Shows info about Magik Bot"""
-    author_repo = "https://github.com/FoglyOgly"
-    author_name = "FoglyOgly"
+    author_repo = "https://github.com/unseenmagik/"
+    author_name = "Magik"
     bot_repo = author_repo + "/Meowth"
-    server_url = "https://discord.gg/hhVjAN8"
+    server_url = "https://discord.gg/kQjTw5Z"
     owner = Meowth.owner
     channel = ctx.message.channel
     uptime_str = await _uptime(Meowth)
@@ -1574,7 +1574,7 @@ async def about(ctx):
     embed.add_field(name="Your Server", value=yourserver)
     embed.add_field(name="Your Members", value=yourmembers)
     embed.add_field(name="Uptime", value=uptime_str)
-    embed.set_footer(text="For support, contact us on our Discord server. Invite Code: hhVjAN8")
+    embed.set_footer(text="For support, contact us on our Discord server. Invite Code: kQjTw5Z")
 
     try:
         await Meowth.send_message(channel,embed=embed)
