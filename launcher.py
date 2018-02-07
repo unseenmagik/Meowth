@@ -9,7 +9,7 @@ import argparse
 
 def parse_cli_args():
     parser = argparse.ArgumentParser(description="Magik Bot Launcher - Pokemon Go Bot for Discord")
-    parser.add_argument("--start","-s",help="Starts Meowth",action="store_true")
+    parser.add_argument("--start","-s",help="Starts Magik Bot",action="store_true")
     parser.add_argument("--auto-restart","-r",help="Auto-Restarts Magik Bot in case of a crash.",action="store_true")
     parser.add_argument("--debug","-d",help="Prevents output being sent to Discord DM, as restarting could occur often.",action="store_true")
     return parser.parse_args()
