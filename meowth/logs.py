@@ -10,7 +10,7 @@ def init_loggers():
     console.setLevel(logging.WARNING)
     dpy_logger.addHandler(console)
 
-    # Meowth
+    # Magik Bot
 
     logger = logging.getLogger("meowth")
 
