@@ -82,7 +82,7 @@ def missing_arg_msg(ctx):
 
     sig.remove('ctx')
     args_missing = sig[arg_num:]
-    msg = "Meowth! I'm missing some details! Usage: {prefix}{command}".format(prefix=prefix,command=command)
+    msg = "Magik Bot! I'm missing some details! Usage: {prefix}{command}".format(prefix=prefix,command=command)
 
     for a in sig:
         if kwonlydefaults:
@@ -117,28 +117,28 @@ def custom_error_handling(bot,logger):
             pass
 
         elif isinstance(error, TeamSetCheckFail):
-            msg = "Meowth! Team Management is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Team Management is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
             await bot.send_message(ctx.message.channel,msg)
             pass
 
         elif isinstance(error, WantSetCheckFail):
-            msg = "Meowth! Pokemon Management is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Pokemon Management is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
             await bot.send_message(ctx.message.channel,msg)
             pass
 
         elif isinstance(error, WildSetCheckFail):
-            msg = "Meowth! Wild Reporting is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Wild Reporting is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
             await bot.send_message(ctx.message.channel,msg)
             pass
 
         elif isinstance(error, RaidSetCheckFail):
-            msg = "Meowth! Raid Management is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Raid Management is not enabled on this server. **!{cmd_name}** is unable to be used.".format(cmd_name=ctx.command.name)
             await bot.send_message(ctx.message.channel,msg)
             pass
 
         elif isinstance(error, CityChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in ".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in ".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="a Region report channel."
@@ -152,7 +152,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, WantChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in the following channel".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in the following channel".format(cmd_name=ctx.command.name)
             want_channels = bot.server_dict[server.id]['want_channel_list']
 
             if len(want_channels) > 1:
@@ -171,7 +171,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, RaidChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in a Raid channel. Use **!list** in any ".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in a Raid channel. Use **!list** in any ".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="Region report channel to see active raids."
@@ -185,7 +185,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, RaidChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in an Egg channel. Use **!list** in any ".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in an Egg channel. Use **!list** in any ".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="Region report channel to see active raids."
@@ -198,13 +198,13 @@ def custom_error_handling(bot,logger):
             pass
 
         elif isinstance(error, NonRaidChannelCheckFail):
-            msg = "Meowth! **!{cmd_name}** can't be used in a Raid channel.".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! **!{cmd_name}** can't be used in a Raid channel.".format(cmd_name=ctx.command.name)
             await bot.send_message(ctx.message.channel,msg)
             pass
 
         elif isinstance(error, ActiveRaidChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in an Active Raid channel. Use **!list** in any ".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in an Active Raid channel. Use **!list** in any ".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="Region report channel to see active raids."
@@ -218,7 +218,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, CityRaidChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in either a Raid channel or ".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in either a Raid channel or ".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="a Region report channel."
@@ -232,7 +232,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, RegionEggChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in either a Raid Egg channel or ".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in either a Raid Egg channel or ".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="a Region report channel."
@@ -246,7 +246,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, RegionExRaidChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in either a EX Raid channel or one of the following region channels:".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in either a EX Raid channel or one of the following region channels:".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="a Region report channel."
@@ -260,7 +260,7 @@ def custom_error_handling(bot,logger):
 
         elif isinstance(error, ExRaidChannelCheckFail):
             server = ctx.message.server
-            msg = "Meowth! Please use **!{cmd_name}** in a EX Raid channel. Use **!list** in any of the following region channels to see active raids:".format(cmd_name=ctx.command.name)
+            msg = "Magik Bot! Please use **!{cmd_name}** in a EX Raid channel. Use **!list** in any of the following region channels to see active raids:".format(cmd_name=ctx.command.name)
             city_channels = bot.server_dict[server.id]['city_channels']
             if len(city_channels) > 10:
                 msg+="a Region report channel."
