@@ -2466,11 +2466,11 @@ async def exraid(ctx):
     """Report an upcoming EX raid.
 
     Usage: !exraid <location>
-    Meowth will insert the details (really just everything after the species name) into a
+    Magik Bot will insert the details (really just everything after the species name) into a
     Google maps link and post the link to the same channel the report was made in.
-    Meowth's message will also include the type weaknesses of the boss.
+    Magik Bot's message will also include the type weaknesses of the boss.
 
-    Finally, Meowth will create a separate channel for the raid report, for the purposes of organizing the raid."""
+    Finally, Magik Bot will create a separate channel for the raid report, for the purposes of organizing the raid."""
     await _exraid(ctx)
 
 async def _exraid(ctx):
@@ -2481,14 +2481,14 @@ async def _exraid(ctx):
     exraid_split = message.clean_content.split()
     del exraid_split[0]
     if len(exraid_split) <= 0:
-        await Meowth.send_message(channel, _("Meowth! Give more details when reporting! Usage: **!exraid <location>**"))
+        await Meowth.send_message(channel, _("Magik Bot! Give more details when reporting! Usage: **!exraid <location>**"))
         return
     rgx = r"[^a-zA-Z0-9]"
     pkmn_match = next((p for p in pkmn_info['pokemon_list'] if re.sub(rgx, "", p) == re.sub(rgx, "", exraid_split[0].lower())), None)
     if pkmn_match:
         del exraid_split[0]
     if len(exraid_split) <= 0:
-        await Meowth.send_message(channel, _("Meowth! Give more details when reporting! Usage: **!exraid <location>**"))
+        await Meowth.send_message(channel, _("Magik Bot! Give more details when reporting! Usage: **!exraid <location>**"))
         return
     raid_details = " ".join(exraid_split)
     raid_details = raid_details.strip()
@@ -2511,7 +2511,7 @@ async def _exraid(ctx):
         overwrite[1].send_messages = False
     raid_channel = await Meowth.create_channel(message.server, raid_channel_name, *raid_channel_overwrites, everyone_overwrite, meowth_overwrite)
     raid_img_url = "https://raw.githubusercontent.com/FoglyOgly/Meowth/master/images/eggs/{}?cache=2".format(str(egg_img))
-    raid_embed = discord.Embed(title=_("Meowth! Click here for directions to the coming raid!"),url=raid_gmaps_link,colour=message.server.me.colour)
+    raid_embed = discord.Embed(title=_("Magik Bot! Click here for directions to the coming raid!"),url=raid_gmaps_link,colour=message.server.me.colour)
     if len(egg_info['pokemon']) > 1:
         raid_embed.add_field(name="**Possible Bosses:**", value=_("{bosslist1}").format(bosslist1="\n".join(boss_list[::2])), inline=True)
         raid_embed.add_field(name="\u200b", value=_("{bosslist2}").format(bosslist2="\n".join(boss_list[1::2])), inline=True)
@@ -2523,10 +2523,10 @@ async def _exraid(ctx):
     else:
         raid_embed.set_footer(text=_("Reported by @{author} - {timestamp}").format(author=message.author.display_name, timestamp=timestamp), icon_url=message.author.default_avatar_url)
     raid_embed.set_thumbnail(url=raid_img_url)
-    raidreport = await Meowth.send_message(channel, content = _("Meowth! EX raid egg reported by {member}! Details: {location_details}. Use the **!invite** command to gain access and coordinate in {raid_channel}").format(member=message.author.mention, location_details=raid_details, raid_channel=raid_channel.mention),embed=raid_embed)
+    raidreport = await Meowth.send_message(channel, content = _("Magik bot! EX raid egg reported by {member}! Details: {location_details}. Use the **!invite** command to gain access and coordinate in {raid_channel}").format(member=message.author.mention, location_details=raid_details, raid_channel=raid_channel.mention),embed=raid_embed)
     await asyncio.sleep(1) #Wait for the channel to be created.
 
-    raidmsg = _("""Meowth! EX raid reported by {member} in {citychannel}! Details: {location_details}. Coordinate here after using **!invite** to gain access!
+    raidmsg = _("""Magik Bot! EX raid reported by {member} in {citychannel}! Details: {location_details}. Coordinate here after using **!invite** to gain access!
 
 To update your status, choose from the following commands: **!maybe**, **!coming**, **!here**, **!cancel**. If you are bringing more than one trainer/account, add in the number of accounts total on your first status update.
 Example: `!coming 5`
@@ -2562,7 +2562,7 @@ This channel will be deleted five minutes after the timer expires.""").format(me
     if len(raid_info['raid_eggs']['EX']['pokemon']) == 1:
         await _eggassume("assume "+ get_name(raid_info['raid_eggs']['EX']['pokemon'][0]), raid_channel)
     now = datetime.datetime.utcnow() + datetime.timedelta(hours=server_dict[raid_channel.server.id]['offset'])
-    await Meowth.send_message(raid_channel, content = _("Meowth! Hey {member}, if you can, set the time left until the egg hatches using **!timerset <date and time>** so others can check it with **!timer**. **<date and time>** should look like it does on your EX Raid pass.").format(member=message.author.mention))
+    await Meowth.send_message(raid_channel, content = _("Magik Bot! Hey {member}, if you can, set the time left until the egg hatches using **!timerset <date and time>** so others can check it with **!timer**. **<date and time>** should look like it does on your EX Raid pass.").format(member=message.author.mention))
     event_loop.create_task(expiry_check(raid_channel))
 
 @Meowth.command(pass_context=True)
@@ -2571,11 +2571,11 @@ async def invite(ctx):
     """Join an EX Raid by showing your invite.
 
     Usage: !invite [image attachment]
-    If the image isn't added at the same time as the command, Meowth will wait 30 seconds for a followup message containing the image."""
+    If the image isn't added at the same time as the command, Magik Bot will wait 30 seconds for a followup message containing the image."""
     if ctx.message.attachments:
         await _invite(ctx)
     else:
-        wait_msg = await Meowth.send_message(ctx.message.channel,_("Meowth! I'll wait for you to send your pass!"))
+        wait_msg = await Meowth.send_message(ctx.message.channel,_("Magik Bot! I'll wait for you to send your pass!"))
         def check(msg):
             if msg.channel == ctx.message.channel and ctx.message.author.id == msg.author.id:
                 if msg.attachments:
@@ -2587,7 +2587,7 @@ async def invite(ctx):
             return
         else:
             await Meowth.delete_message(wait_msg)
-            await Meowth.send_message(ctx.message.channel, "Meowth! You took too long to show me a screenshot of your invite! Retry when you're ready.")
+            await Meowth.send_message(ctx.message.channel, "Magik Bot! You took too long to show me a screenshot of your invite! Retry when you're ready.")
             return
 
 async def _invite(ctx):
