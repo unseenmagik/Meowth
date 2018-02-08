@@ -11,14 +11,14 @@
 
 "//": "Bot token ID, needed for authentication.",
 "//": "This is found on the app page when you click to reveal the bot user's token",
-"bot_token": "NDEwNzcyMzkzNTk4OTEwNDY0.DVyBIg.GL3giqw0zCWKxZGRYokkPy4A7r8",
+"bot_token": "TOKEN",
 
 "//": "Default bot prefix. Used if server has not set one.",
 "default_prefix":"!",
 
 "//": "Define Meowth's master id (that's you).",
 "//": "Meowth will only take admin commands from the user with this id",
-"master": "289760722622349312",
+"master": "USER_ID",
 
 "//": "Limit egg assumed hatches to certain egg levels.",
 "allow_assume": {"EX": "False", "5": "False", "4": "False", "3": "False", "2": "False", "1": "False"},
