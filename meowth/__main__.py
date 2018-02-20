@@ -2515,7 +2515,7 @@ async def _eggassume(args, raid_channel):
 async def _eggtoraid(entered_raid, raid_channel):
     eggdetails = guild_dict[raid_channel.guild.id]['raidchannel_dict'][raid_channel.id]
     egglevel = eggdetails['egglevel']
-    if int(egglevel) == 0:
+    if egglevel.isdigit() and int(egglevel) == 0:
         egglevel = get_level(entered_raid)
     try:
         reportcitychannel = Meowth.get_channel(eggdetails['reportcity'])
